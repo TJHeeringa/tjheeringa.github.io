@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-1.3.433">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+  <title></title>
+  <style>
+    code {
+      white-space: pre-wrap;
+    }
+
+    span.smallcaps {
+      font-variant: small-caps;
+    }
+
+    div.columns {
+      display: flex;
+      gap: min(4vw, 1.5em);
+    }
+
+    div.column {
+      flex: auto;
+      overflow-x: auto;
+    }
+
+    div.hanging-indent {
+      margin-left: 1.5em;
+      text-indent: -1.5em;
+    }
+
+    ul.task-list {
+      list-style: none;
+    }
+
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em;
+      /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
+      vertical-align: middle;
+    }
+
+    /* CSS for syntax highlighting */
+    pre>code.sourceCode {
+      white-space: pre;
+      position: relative;
+    }
+
+    pre>code.sourceCode>span {
+      display: inline-block;
+      line-height: 1.25;
+    }
+
+    pre>code.sourceCode>span:empty {
+      height: 1.2em;
+    }
+
+    .sourceCode {
+      overflow: visible;
+    }
+
+    code.sourceCode>span {
+      color: inherit;
+      text-decoration: inherit;
+    }
+
+    div.sourceCode {
+      margin: 1em 0;
+    }
+
+    pre.sourceCode {
+      margin: 0;
+    }
+
+    @media screen {
+      div.sourceCode {
+        overflow: auto;
+      }
+    }
+
+    @media print {
+      pre>code.sourceCode {
+        white-space: pre-wrap;
+      }
+
+      pre>code.sourceCode>span {
+        text-indent: -5em;
+        padding-left: 5em;
+      }
+    }
+
+    pre.numberSource code {
+      counter-reset: source-line 0;
+    }
+
+    pre.numberSource code>span {
+      position: relative;
+      left: -4em;
+      counter-increment: source-line;
+    }
+
+    pre.numberSource code>span>a:first-child::before {
+      content: counter(source-line);
+      position: relative;
+      left: -1em;
+      text-align: right;
+      vertical-align: baseline;
+      border: none;
+      display: inline-block;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      padding: 0 4px;
+      width: 4em;
+    }
+
+    pre.numberSource {
+      margin-left: 3em;
+      padding-left: 4px;
+    }
+
+    div.sourceCode {}
+
+    @media screen {
+      pre>code.sourceCode>span>a:first-child::before {
+        text-decoration: underline;
+      }
+    }
+  </style>
+
+  
+  <link type="text/css" href="/static/blog/shared.css" rel="stylesheet" />
+  <link type="text/css" href="/static/blog/nav.css" rel="stylesheet" />
+
+  <script type="text/javascript" src="/static/blog/notebooks/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript" src="/static/blog/notebooks/quarto-html/quarto.js"></script>
+  <script type="text/javascript" src="/static/blog/notebooks/quarto-html/popper.min.js"></script>
+  <script type="text/javascript" src="/static/blog/notebooks/quarto-html/tippy.umd.min.js"></script>
+  <script type="text/javascript" src="/static/blog/notebooks/quarto-html/anchor.min.js"></script>
+
+  <link href="/static/blog/notebooks/quarto-html/tippy.css" rel="stylesheet">
+  <link href="/static/blog/notebooks/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+  <script type="text/javascript" src="/static/blog/notebooks/bootstrap/bootstrap.min.js"></script>
+  <link href="/static/blog/notebooks/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/blog/notebooks/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"
+    integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+    crossorigin="anonymous"></script>
+  <script type="application/javascript">define('jquery', [], function () { return window.jQuery; })</script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    window.PlotlyConfig = { MathJaxConfig: 'local' };
+    if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) { window.MathJax.Hub.Config({ SVG: { font: "STIX-Web" } }); }
+    if (typeof require !== 'undefined') {
+      require.undef("plotly");
+      requirejs.config({
+        paths: {
+          'plotly': ['https://cdn.plot.ly/plotly-2.24.1.min']
+        }
+      });
+      require(['plotly'], function (Plotly) {
+        window._Plotly = Plotly;
+      });
+    }
+  </script>
+
+
+
+</head>
+
+<body class="">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+    <div class="container px-5 w-100">
+        <a class="navbar-brand" href="/"><span class="fw-bolder text-title">Tjeerd Jan Heeringa</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/posts">Blog</a></li>
+                <li class="nav-item"><a class="nav-link" href="/talks">Talks</a></li>
+                <li class="nav-item"><a class="nav-link" href="/papers">Papers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/posters">Posters</a></li>
+                <li class="nav-item"><a class="nav-link" href="/collaborators">Collaborators</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+  
+    
+
+
+<div class="page-columns page-rows-contents page-layout-article" id="quarto-content">
+<div class="sidebar margin-sidebar" id="quarto-margin-sidebar">
+</div>
+<main class="content page-columns page-full" id="quarto-document-content">
+<header class="quarto-title-block default" id="title-block-header">
+<div class="quarto-title">
+<h1 class="title">Moser’s theorem</h1>
+<p class="subtitle lead">Not quite the powers of two.</p>
+</div>
+<div class="quarto-title-meta">
+<div>
+<div class="quarto-title-meta-heading">Author</div>
+<div class="quarto-title-meta-contents">
+<p>T.J. Heeringa </p>
+</div>
+</div>
+<div>
+<div class="quarto-title-meta-heading">Published</div>
+<div class="quarto-title-meta-contents">
+<p class="date">September 10, 2023</p>
+</div>
+</div>
+</div>
+<div>
+<div class="abstract">
+<div class="block-title">Abstract</div>
+<p>Upon seeing the sequence {1,2,4,8,16,…}, it is reasonable to expect that the next number would be 32. However, the next number for this particular sequence is 31. The sequence is the maximal number of regions obtained by joining n points around a circle by straight lines. In this post we go deeper into why the start of the sequence is a set of powers of two, why this pattern breaks and whether there are more powers of two in the sequence.</p>
+</div>
+</div>
+</header>
+<section class="level2" id="introduction">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Many problems in mathematics start with a very simple idea. This is one such problem. I first learned about this problem problem through a <a href="https://youtube.com/">YouTube video</a> by <a href="https://youtube.com">3Blue1Brown</a>. There he teased the problem by showing the first 5 entries of the sequence <a href="https://oeis.org/A000127">A000127</a>, which are <span class="math inline">\({1,2,4,8,16}\)</span>. He asked what is the next number would be. From the premis of the question you already now that it won’t be <span class="math inline">\(32\)</span>, yet that feels the most natural next number. In this case, it is 31. Let’s go over why this next number is <span class="math inline">\(31\)</span>, and, perhaps more fascinating, show that after these few powers of 2 there is only 1 other power of 2.</p>
+</section>
+<section class="level2 page-columns page-full" id="mosers-circle-problem">
+<h2 class="anchored" data-anchor-id="mosers-circle-problem">Moser’s circle problem</h2>
+<p>Moser’s circle problem can be written as</p>
+<blockquote class="blockquote">
+<p>Let <span class="math inline">\(n\in \mathbb{N}\)</span>. What is the maximal number of areas formed by the edges and diagonals for the graph created from the complete graph generated from placing <span class="math inline">\(n\)</span> points on the unit circle and adding the arcs between the points on the unit circle to it.</p>
+</blockquote>
+<div class="no-row-height column-margin column-container"><div class="">
+<p>This may seems a little more complicated than needed. We could have written</p>
+<blockquote class="blockquote">
+<p>Let <span class="math inline">\(n\in \mathbb{N}\)</span>. What is the maximal number of areas formed by the edges and diagonals for the complete graph created generated from placing <span class="math inline">\(n\)</span> points on the unit circle.</p>
+</blockquote>
+<p>but then we would miss <span class="math inline">\(n\)</span> areas when placing <span class="math inline">\(n\)</span> points. The resulting sequence <span class="math inline">\({0,0,1,4,11,25,...}\)</span> is just not as interesting.</p>
+</div></div><p>It can help to look at an image to see what is meant.</p>
+<div class="quarto-figure quarto-figure-center quarto-float anchored" id="fig-mosers-visualized">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mosers-visualized-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img class="img-fluid figure-img" src="/static/blog/notebooks/mosers_theorem/800px-Circle_division_by_chords.svg.png"/>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mosers-visualized-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 1: Visual representation of Moser’s circle problem <span class="citation" data-cites="mosers_theorem_cicle_division">(<a href="#ref-mosers_theorem_cicle_division" role="doc-biblioref">Cmglee 2023</a>)</span>. <span class="math inline">\(n\)</span> are the number of placed points, <span class="math inline">\(c\)</span> are the number of edges and diagonals, and <span class="math inline">\(r_G\)</span> is the number of areas formed. Each area formed has a different color.
+</figcaption>
+</figure>
+</div>
+<p>In <a class="quarto-xref" href="#fig-mosers-visualized">Figure 1</a> we see the what happens up to <span class="math inline">\(n=6\)</span>. For <span class="math inline">\(n=1\)</span> we have no edges nor diagonals so we have just one area. For <span class="math inline">\(n=2\)</span> we split this area into two. For <span class="math inline">\(n=3\)</span> we get a triangle. This is the first time we get more areas than points. For <span class="math inline">\(n=4\)</span> our triangle becomes a kite and splits into four areas. When we increase <span class="math inline">\(n\)</span> even further, we get more areas added than in any step before. This makes us wonder two things:</p>
+<ol type="1">
+<li>Is there a closed form formula <span class="math inline">\(f(n)\)</span>?</li>
+<li>Will the number of points every be a power of 2 again?</li>
+</ol>
+<p>Let’s answer these two questions.</p>
+</section>
+<section class="level2" id="closed-form-formula">
+<h2 class="anchored" data-anchor-id="closed-form-formula">Closed form formula</h2>
+<p>To get to a closed form formula it is only natural to think about a proof by induction, but we have a planar graph inside our graph. This means we can use Euler’s formula for planar graphs <span class="math display">\[
+   V - E + F = 2,
+\]</span> where <span class="math inline">\(V\)</span> is the number of vertices, <span class="math inline">\(E\)</span> is the number of edges, and <span class="math inline">\(F\)</span> is the number of facas (including 1 for the outer region). <span class="math inline">\(F\)</span> is related to the number of areas by <span class="math inline">\(r_G-1\)</span> (if we already include into <span class="math inline">\(E\)</span> the arcs of the circle), so if we can find an expression for <span class="math inline">\(V\)</span> and <span class="math inline">\(E\)</span> we have one for <span class="math inline">\(r_G\)</span>, namely <span id="eq-regions"><span class="math display">\[
+  r_G = E - V+ 1.
+\tag{1}\]</span></span> Let’s discuss how to do that.</p>
+<section class="level3" id="planar-graph-inside-the-graph">
+<h3 class="anchored" data-anchor-id="planar-graph-inside-the-graph">Planar graph inside the graph</h3>
+<p>First, we need to define this planar graph inside our graph. We start by making each point put on the circle a vertex. We call these the exterior vertices. From <span class="math inline">\(n=4\)</span> onwards we have lines that are crossing. This means it is no longer a planar graph. However, we can “uncross” the lines by placing vertices on the intersections. Each original line will become a series of edges connecting these interior vertices and the exterior vertices. Let’s see this in action for <span class="math inline">\(n=4\)</span>.</p>
+<div class="quarto-figure quarto-figure-center quarto-float anchored" id="fig-planar-graph">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-planar-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img class="img-fluid figure-img" src="/static/blog/notebooks/mosers_theorem/planar_n%3D4.png"/>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-planar-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 2: Transformation of the Moser’s circle problem graph for <span class="math inline">\(n=4\)</span> (left) to a planar graph (right)
+</figcaption>
+</figure>
+</div>
+<p>We see in <a class="quarto-xref" href="#fig-planar-graph">Figure 3</a> that the center of the kite got replaced. There were 4 lines going through that point, so now we have 4 new edges; two edges for each line going through the intersection. For <span class="math inline">\(n=5\)</span> the picture becomes more complicated.</p>
+<div class="quarto-figure quarto-figure-center quarto-float anchored" id="fig-planar-graph">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-planar-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img class="img-fluid figure-img" src="/static/blog/notebooks/mosers_theorem/planar_n%3D5.png"/>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-planar-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 3: Transformation of the Moser’s circle problem graph for <span class="math inline">\(n=5\)</span> (left) to a planar graph (right)
+</figcaption>
+</figure>
+</div>
+<p>We see that we get <span class="math inline">\(5\)</span> interior vertices and a bunch of edges. In this case, we already don’t have a straight forward expression for the edges anymore, but the resulting graph is definitely planar.</p>
+</section>
+<section class="level3" id="at-most-2-intersections">
+<h3 class="anchored" data-anchor-id="at-most-2-intersections">At most 2 intersections</h3>
+<p>Up to <span class="math inline">\(n=6\)</span> at most <span class="math inline">\(2\)</span> lines cross at each interior vertex. This is in fact the way that we maximize the number of regions. We will not show in this post that this is indeed maximal, but we will show that we can always pick <span class="math inline">\(n\)</span> points in such a way.</p>
+<div class="theorem lemma" id="lem-node-placement">
+<p><span class="theorem-title"><strong>Lemma 1</strong></span> <span class="math inline">\(n\)</span> points can be placed on the circle such that there is at at most two lines intersect.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>A proof by induction on <span class="math inline">\(n\)</span>.</p>
+<p>Suppose <span class="math inline">\(n=1\)</span>, then clearly this is true.</p>
+<p>Suppose it is possible for <span class="math inline">\(n-1\)</span> points. We show that can add another point with creating a point at which 3 lines intersect. Note that this is possible only if the line connecting the new point and an existing point goes through an intersection. Each line starting at an existing point and going through an intersection crosses the circle at one other point. Since there are <span class="math inline">\(n-1\)</span> existing points and finitely many intersections, there are finitely many points the new point is not allowed to be placed. Since there are infinitely many point on the circle, the new point can be placed.</p>
+</div>
+<p><a class="quarto-xref" href="#lem-node-placement">Lemma 1</a> show that we indeed only have to consider the case that at most two lines intersect.</p>
+</section>
+<section class="level3" id="number-of-vertices-in-the-planar-graph">
+<h3 class="anchored" data-anchor-id="number-of-vertices-in-the-planar-graph">Number of vertices in the planar graph</h3>
+<p>Let us first consider the number of vertices in the planar graph.</p>
+<div class="theorem proposition" id="prp-vertices">
+<p><span class="theorem-title"><strong>Proposition 1</strong></span> <span class="math inline">\(V= V_{int}+V_{ext}\)</span> with <span class="math inline">\(V_{int} = \binom{n}{4}\)</span> and <span class="math inline">\(V_{ext} = n\)</span>.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>The total number of vertices in the planar graph is the sum of the interior vertices and the exterior vertices.</p>
+<p>It is straightforward to see that the planar graph has <span class="math inline">\(n\)</span> vertices on the circle. Hence, <span class="math inline">\(V_{ext} = n\)</span>.</p>
+<p>For the interior vertices of the planar graph, observe that they are in the intersection of two lines. Every line is uniquely determined by 2 exterior vertices, so the interior vertices are uniquely determined by 4 vertices on the circle. Hence, <span class="math inline">\(V_{int} = \binom{n}{4}\)</span>.</p>
+</div>
+</section>
+<section class="level3" id="number-of-edges-in-the-graph">
+<h3 class="anchored" data-anchor-id="number-of-edges-in-the-graph">Number of edges in the graph</h3>
+<p>Since we are dealing with a planar graph, we have that the twice the number of edges is equal to the total degree sum of the graph. We will use this relation to compute the number of edges.</p>
+<div class="theorem proposition" id="prp-edges">
+<p><span class="theorem-title"><strong>Proposition 2</strong></span> <span class="math inline">\(E= 2\binom{n}{4}+\binom{n}{2}+n\)</span>.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Each internal vertex has by construction a degree of <span class="math inline">\(4\)</span>. Each external vertex has one outgoing edge for each of the other external vertices and 2 additional ones for the adjecent external vertices on the circle. Hence, the total degree sum <span class="math inline">\(d(G)\)</span> is <span class="math display">\[
+  d(G) = 4V_{int} + V_{ext}((V_{ext}-1)+2) = 4\binom{n}{4} + n(n-1+2) = 4\binom{n}{4} + n(n-1) + 1.
+\]</span> Dividing by two gives the required expression.</p>
+</div>
+</section>
+<section class="level3" id="the-formula">
+<h3 class="anchored" data-anchor-id="the-formula">The formula</h3>
+<p>Using <a class="quarto-xref" href="#prp-vertices">Proposition 1</a> and <a class="quarto-xref" href="#prp-edges">Proposition 2</a> we have now the needed information to fill in <a class="quarto-xref" href="#eq-regions">Equation 1</a>. This gives us the following expression.</p>
+<div id="th-closed-form">
+<p><span class="math display">\[
+  r_G(n) = \binom{n}{4} + \binom{n}{2} + 1
+\]</span></p>
+</div>
+<p>This answers our first question.</p>
+</section>
+</section>
+<section class="level2" id="powers-of-two">
+<h2 class="anchored" data-anchor-id="powers-of-two">Powers of two</h2>
+<p>The second question is whether there are more values for <span class="math inline">\(n\)</span> that give a power of two. This means we need to solve <span id="eq-diophantine-exp-binom"><span class="math display">\[
+  \binom{n}{4} + \binom{n}{2} + 1 = 2^k
+\tag{2}\]</span></span> for all pairs <span class="math inline">\((n,k)\in\mathbb{N}^2\)</span>. First, polynomials are easier than binomials so let’s rewrite <span class="math inline">\(r_G\)</span> into <span class="math display">\[
+  r_G(n) = \frac{1}{24}(n^4 - 6n^3+23n^2-18n+24).
+\]</span></p>
+<section class="level3" id="existence-of-a-solution">
+<h3 class="anchored" data-anchor-id="existence-of-a-solution">Existence of a solution</h3>
+<p>We know that there are at least three solutions pairs <span class="math inline">\((n,k)\)</span>. For this we are going to use corollary 2 in <a href="http://matwbn.icm.edu.pl/ksiazki/aa/aa31/aa3129.pdf">this paper</a>. Substituting the necessary information to make it a standalone statement produces the following lemma.</p>
+<div class="theorem lemma" id="lem-schinzel-tijdeman">
+<p><span class="theorem-title"><strong>Lemma 2</strong></span> If a polynomial <span class="math inline">\(P(x)\)</span> with rational coefficients has at least three simple zeros, then the equation <span class="math display">\[
+  y^m = P(x), \quad x,y\in \mathbb{Z}, |y|&gt;1
+\]</span> has only finitely many integer solutions <span class="math inline">\(m\)</span>, <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> with <span class="math inline">\(m&gt;1\)</span>, <span class="math inline">\(|y|&gt;1\)</span> and these solutions can be found effectively.</p>
+</div>
+<p>We see that <span class="math inline">\(r_G\)</span> is a polynomial with rational coefficients, so all we need to check whether the lemma can be used is to check the zero of the polynomial.</p>
+<pre class="{mathematica}"><code>rG[n_] = (n^4 - 6 n^3 + 23 n^ 2 - 18 n + 24)/24
+Roots[rG[n] == 0, n]</code></pre>
+<p>This mathematica code gives us 4 distinct roots, so indeed the lemma holds.</p>
+<div class="theorem proposition" id="prp-existence">
+<p><span class="theorem-title"><strong>Proposition 3</strong></span> There are only finitely many integer solutions to <span id="eq-moser-equation"><span class="math display">\[
+  2^m = r_G(n).
+\tag{3}\]</span></span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>By <a class="quarto-xref" href="#lem-schinzel-tijdeman">Lemma 2</a> there are finitely many integer solutions to <span id="eq-general-equation"><span class="math display">\[
+  y^m = r_G(n)
+\tag{4}\]</span></span> with <span class="math inline">\(|y|&gt;1\)</span> and $y,m,n. The solutions to <a class="quarto-xref" href="#eq-moser-equation">Equation 3</a> are a subset of the solutions to <a class="quarto-xref" href="#eq-general-equation">Equation 4</a>, since <span class="math inline">\(y=2\)</span> satisfies <span class="math inline">\(|y|&gt;1\)</span>. So there must also be at most finitely many integer solutions to <a class="quarto-xref" href="#eq-moser-equation">Equation 3</a>.</p>
+</div>
+</section>
+<section class="level3" id="finding-the-solutions">
+<h3 class="anchored" data-anchor-id="finding-the-solutions">Finding the solutions</h3>
+<p>We now know that there are finitely many solutions to <a class="quarto-xref" href="#eq-moser-equation">Equation 3</a>, but that does not tell us what those are. In particular, not whether the ones that we have are the only ones. To find all the solutions to <a class="quarto-xref" href="#eq-moser-equation">Equation 3</a>, we are going to write the equation as an elliptic curve. To that we are first going to write it as a quartic equation, and subsequently apply a birational transformation and do some algebraic manipulations.</p>
+<p>To write <a class="quarto-xref" href="#eq-moser-equation">Equation 3</a> as a quartic equation, we first bring the 24 to the other side of the equation.</p>
+<p><span id="eq-diophantine-exp"><span class="math display">\[
+  f(n):=n^4 - 6n^3+23n^2-18n+24 = 24(2^k)
+\tag{5}\]</span></span> This looks a lot like a Diophantine equation, but not quite due to the <span class="math inline">\(2^k\)</span>. Since it is the only place where the <span class="math inline">\(k\)</span> appears, we can define a new variable <span class="math inline">\(m=2^{\lfloor k/2\rfloor}\)</span> and substitute that. This has two cases depending on whether <span class="math inline">\(k\)</span> is even, so substitution of it into <a class="quarto-xref" href="#eq-diophantine-exp">Equation 5</a> gives <span id="eq-diophantine-a"><span class="math display">\[
+  f(n) = 24 m^2
+\tag{6}\]</span></span> and <span id="eq-diophantine-b"><span class="math display">\[
+  f(n) = 24(2 m^2) = 48 m^2.
+\tag{7}\]</span></span> These are starting to look like quartic equations except for the constants in front of the <span class="math inline">\(m^2\)</span>. Multiplying <a class="quarto-xref" href="#eq-diophantine-a">Equation 6</a> by 6 and <a class="quarto-xref" href="#eq-diophantine-b">Equation 7</a> with 3 and substituting <span class="math inline">\(p=12m\)</span> gives <span id="eq-diophantine-2a"><span class="math display">\[
+  6f(n) = (12m)^2 = p^2
+\tag{8}\]</span></span> and <span id="eq-diophantine-2b"><span class="math display">\[
+  3f(n) = (12m)^2 = p^2,
+\tag{9}\]</span></span> two quartic equations.</p>
+<p>The computation software Magma has a proprietary solver <code>IntegralQuarticPoints</code> that can solve quartic equations of the form <span id="eq-magma"><span class="math display">\[
+  p^2 = an^4+bn^3+n^2+n+e^2
+\tag{10}\]</span></span> with <span class="math inline">\(a,b,c,d,e\in\mathbb{Z}\)</span> and <span class="math inline">\(a,e&gt;0\)</span>. We cannot use their solver for free, but we can use the likely algorithm behind it. First, it uses a birational transform <span class="math display">\[
+    n = \frac{2q(X+c)-\frac{d^2}{2e}}{Y}, \quad
+    p = -e+\frac{n(nX-d)}{2e}
+\]</span> to change <a class="quarto-xref" href="#eq-magma">Equation 10</a> into the Weierstrass model <span class="math display">\[
+  Y^2 + a_1XY + a_3 Y = X^3 + a_2X^2 + a_4X + a_6
+\]</span> with <span class="math display">\[
+    a_1 = \frac{d}{e}, \quad
+    a_2 = \frac{4 c e^2-d^2}{4 e^2} , \quad
+    a_3 = 2 b e, \quad
+    a_4 = -4 a e^2, \quad
+    a_6 = a d^2-4 a c e^2
+\]</span> Subsequently, it uses the transformation <span class="math display">\[
+  X = x - \frac{c}{3}, \quad
+  Y = \sigma y- \frac{d}{2e}x+ \frac{cd}{6e}-eb
+\]</span> with <span class="math inline">\(\sigma\in \{-1,1\}\)</span> to change the Weierstrass model into the elliptic curve <span id="eq-elliptic"><span class="math display">\[
+  y^2 = x^3 + Ax +B
+\tag{11}\]</span></span> with <span class="math display">\[
+  A=-\frac{c^2}{3}+bd-4e^2a, \quad
+  B=\frac{2}{27}c^3-\frac{bcd}{27}-\frac{8}{3}e^2ac+e^2b^2+ad^2
+\]</span> This elliptic curve we can solve using the Sage. The used transformations are described <span class="citation" data-cites="tzanakis_solving_1996">Tzanakis (<a href="#ref-tzanakis_solving_1996" role="doc-biblioref">1996</a>)</span> and <span class="citation" data-cites="connell_elliptic_1999">Connell (<a href="#ref-connell_elliptic_1999" role="doc-biblioref">1999</a>)</span>.</p>
+<p>We will use this to first solve <a class="quarto-xref" href="#eq-diophantine-2a">Equation 8</a> and then <a class="quarto-xref" href="#eq-diophantine-2b">Equation 9</a>.</p>
+<section class="level4" id="sec-first-quartic">
+<h4 class="anchored" data-anchor-id="sec-first-quartic">The first quartic</h4>
+<p><a class="quarto-xref" href="#eq-diophantine-2a">Equation 8</a> can be written as <a class="quarto-xref" href="#eq-general-equation">Equation 4</a> with the coefficients <span class="math display">\[
+  a=6, \quad b=-36, \quad c=138, \quad d=-108, \quad e=12.
+\]</span> Hence, <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are</p>
+<div class="cell" data-execution_count="1" id="ad4e5519">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>a,b,c,d,e <span class="op">=</span> <span class="dv">6</span>,<span class="op">-</span><span class="dv">36</span>,<span class="dv">138</span>,<span class="op">-</span><span class="dv">108</span>,<span class="dv">12</span></span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a>A <span class="op">=</span> <span class="op">-</span>c<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="dv">3</span><span class="op">+</span>b<span class="op">*</span>d<span class="op">-</span><span class="dv">4</span><span class="op">*</span>e<span class="op">**</span><span class="dv">2</span><span class="op">*</span>a</span>
+<span id="cb2-4"><a aria-hidden="true" href="#cb2-4" tabindex="-1"></a>B <span class="op">=</span> <span class="dv">2</span><span class="op">/</span><span class="dv">27</span><span class="op">*</span>c<span class="op">*</span>c<span class="op">*</span>c <span class="op">-</span> (b<span class="op">*</span>c<span class="op">*</span>d)<span class="op">/</span><span class="dv">3</span> <span class="op">-</span> <span class="dv">8</span><span class="op">/</span><span class="dv">3</span><span class="op">*</span>e<span class="op">**</span><span class="dv">2</span><span class="op">*</span>a<span class="op">*</span>c <span class="op">+</span> e<span class="op">**</span><span class="dv">2</span><span class="op">*</span>b<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> a<span class="op">*</span>d<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb2-5"><a aria-hidden="true" href="#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a aria-hidden="true" href="#cb2-6" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"A = </span><span class="sc">{</span>A<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-7"><a aria-hidden="true" href="#cb2-7" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"B = </span><span class="sc">{</span>B<span class="sc">}</span><span class="ss">"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A = -5916.0
+B = -45520.0</code></pre>
+</div>
+</div>
+<p>This we can put into Sage.</p>
+<pre class="{Sage}"><code>sage: E = EllipticCurve([-5916,-45520])
+sage: print([[p[0],p[1]] for p in E.integral_points()])
+[[-70, 160], [-62, 288], [-44, 360], [-22, 272], [-19, 245], [-11, 135], [-8, 36], [82, 144], [106, 720], [122, 1024], [133, 1233], [173, 2027], [280, 4500], [388, 7488], [514, 11520], [1108, 36792], [1402, 52416], [3268, 186768], [11653, 1257903]]</code></pre>
+<p>We now have a solution to <a class="quarto-xref" href="#eq-elliptic">Equation 11</a>, but not to <a class="quarto-xref" href="#eq-diophantine-a">Equation 6</a>. For that we need to work backwards. When we do this and take into account both sign options for sigma, we get a list of candidates for (n,m).</p>
+<div class="cell" data-execution_count="2" id="0dce0b9a">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a><span class="kw">def</span> map_integral_point_to_nm(integral_point, sigma):</span>
+<span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a>  x,y<span class="op">=</span>integral_point</span>
+<span id="cb5-3"><a aria-hidden="true" href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a aria-hidden="true" href="#cb5-4" tabindex="-1"></a>  E <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>e</span>
+<span id="cb5-5"><a aria-hidden="true" href="#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a aria-hidden="true" href="#cb5-6" tabindex="-1"></a>  X <span class="op">=</span> x<span class="op">-</span>c<span class="op">/</span><span class="dv">3</span></span>
+<span id="cb5-7"><a aria-hidden="true" href="#cb5-7" tabindex="-1"></a>  Y <span class="op">=</span> sigma<span class="op">*</span>y<span class="op">-</span>d<span class="op">/</span>E<span class="op">*</span>x<span class="op">+</span>c<span class="op">*</span>d<span class="op">/</span>(<span class="dv">3</span><span class="op">*</span>E)<span class="op">-</span>e<span class="op">*</span>b</span>
+<span id="cb5-8"><a aria-hidden="true" href="#cb5-8" tabindex="-1"></a></span>
+<span id="cb5-9"><a aria-hidden="true" href="#cb5-9" tabindex="-1"></a>  n <span class="op">=</span> (E<span class="op">*</span>(X<span class="op">+</span>c)<span class="op">-</span>d<span class="op">**</span><span class="dv">2</span><span class="op">/</span>E) <span class="op">/</span> Y</span>
+<span id="cb5-10"><a aria-hidden="true" href="#cb5-10" tabindex="-1"></a>  p <span class="op">=</span> <span class="op">-</span>e <span class="op">+</span> n<span class="op">*</span>(n<span class="op">*</span>X<span class="op">-</span>d)<span class="op">/</span>E</span>
+<span id="cb5-11"><a aria-hidden="true" href="#cb5-11" tabindex="-1"></a></span>
+<span id="cb5-12"><a aria-hidden="true" href="#cb5-12" tabindex="-1"></a>  m <span class="op">=</span> p<span class="op">/</span><span class="dv">12</span></span>
+<span id="cb5-13"><a aria-hidden="true" href="#cb5-13" tabindex="-1"></a></span>
+<span id="cb5-14"><a aria-hidden="true" href="#cb5-14" tabindex="-1"></a>  <span class="cf">return</span> (n,m)</span>
+<span id="cb5-15"><a aria-hidden="true" href="#cb5-15" tabindex="-1"></a></span>
+<span id="cb5-16"><a aria-hidden="true" href="#cb5-16" tabindex="-1"></a>integral_points <span class="op">=</span> [[<span class="op">-</span><span class="dv">70</span>, <span class="dv">160</span>], [<span class="op">-</span><span class="dv">62</span>, <span class="dv">288</span>], [<span class="op">-</span><span class="dv">44</span>, <span class="dv">360</span>], [<span class="op">-</span><span class="dv">22</span>, <span class="dv">272</span>], [<span class="op">-</span><span class="dv">19</span>, <span class="dv">245</span>], [<span class="op">-</span><span class="dv">11</span>, <span class="dv">135</span>], [<span class="op">-</span><span class="dv">8</span>, <span class="dv">36</span>], [<span class="dv">82</span>, <span class="dv">144</span>], [<span class="dv">106</span>, <span class="dv">720</span>], [<span class="dv">122</span>, <span class="dv">1024</span>], [<span class="dv">133</span>, <span class="dv">1233</span>], [<span class="dv">173</span>, <span class="dv">2027</span>], [<span class="dv">280</span>, <span class="dv">4500</span>], [<span class="dv">388</span>, <span class="dv">7488</span>], [<span class="dv">514</span>, <span class="dv">11520</span>], [<span class="dv">1108</span>, <span class="dv">36792</span>], [<span class="dv">1402</span>, <span class="dv">52416</span>], [<span class="dv">3268</span>, <span class="dv">186768</span>], [<span class="dv">11653</span>, <span class="dv">1257903</span>]]</span>
+<span id="cb5-17"><a aria-hidden="true" href="#cb5-17" tabindex="-1"></a></span>
+<span id="cb5-18"><a aria-hidden="true" href="#cb5-18" tabindex="-1"></a>nm_candidates <span class="op">=</span> []</span>
+<span id="cb5-19"><a aria-hidden="true" href="#cb5-19" tabindex="-1"></a><span class="cf">for</span> integral_point <span class="kw">in</span> integral_points:</span>
+<span id="cb5-20"><a aria-hidden="true" href="#cb5-20" tabindex="-1"></a>  nm_candidates.append(map_integral_point_to_nm(integral_point, <span class="dv">1</span>))</span>
+<span id="cb5-21"><a aria-hidden="true" href="#cb5-21" tabindex="-1"></a>  nm_candidates.append(map_integral_point_to_nm(integral_point, <span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb5-22"><a aria-hidden="true" href="#cb5-22" tabindex="-1"></a></span>
+<span id="cb5-23"><a aria-hidden="true" href="#cb5-23" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Candidate solutions (n,m):"</span>)</span>
+<span id="cb5-24"><a aria-hidden="true" href="#cb5-24" tabindex="-1"></a><span class="bu">print</span>(nm_candidates)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Candidate solutions (n,m):
+[(0.6, -0.9199999999999999), (-0.168, -1.074368), (1.0, -1.0), (-0.6842105263157895, -1.4321329639889198), (1.7209302325581395, -1.2801514332071389), (-2.0, -3.0), (3.0, -2.0), (-8.178082191780822, -19.858134734471758), (3.2925877763329, -2.212063358929656), (-12.0, -38.0), (4.695652173913044, -3.6030245746691882), (36.0, -244.0), (6.8, -7.12), (10.0, -16.0), (5.0, 4.0), (8.2, 10.479999999999999), (3.0, 2.0), (-237.0, 11612.0), (2.586206896551724, 1.7348394768133175), (-18.6, 83.32000000000001), (2.3894967177242887, 1.6208648353595179), (-12.0, 38.0), (1.938294010889292, 1.3835856930642516), (-5.739130434782608, 11.372400756143664), (1.4105263157894736, 1.1454847645429362), (-2.8, 4.3199999999999985), (1.1665080875356804, 1.0533206107906838), (-2.0, 3.0), (1.0, 1.0), (-1.565130260521042, 2.3937293424524397), (0.6740947075208914, 0.9283990658048902), (-0.896551724137931, 1.6278240190249704), (0.6, 0.9200000000000003), (-0.770890545311887, 1.5089478085160517), (0.3973941368078176, 0.9157762947086973), (-0.46645367412140576, 1.2592452714634221), (0.2147117296222664, 0.9384883541692194), (-0.2334755872173124, 1.1093474670706744)]</code></pre>
+</div>
+</div>
+<p>This derived list of candidate solutions does not include the trivial solutions <span class="math inline">\((n,m)=(0,\pm e/12)\)</span>.</p>
+<div class="cell" data-execution_count="3" id="59c4f347">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" href="#cb7-1" tabindex="-1"></a>nm_candidates.append((<span class="dv">0</span>,e<span class="op">/</span><span class="dv">12</span>))</span>
+<span id="cb7-2"><a aria-hidden="true" href="#cb7-2" tabindex="-1"></a>nm_candidates.append((<span class="dv">0</span>,<span class="op">-</span>e<span class="op">/</span><span class="dv">12</span>))</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s do a check check to see that indeed these are all valid candidates.</p>
+<div class="cell" data-execution_count="4" id="8708e186">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb8-2"><a aria-hidden="true" href="#cb8-2" tabindex="-1"></a><span class="kw">def</span> f(n):</span>
+<span id="cb8-3"><a aria-hidden="true" href="#cb8-3" tabindex="-1"></a>  <span class="cf">return</span> n<span class="op">*</span>n<span class="op">*</span>n<span class="op">*</span>n <span class="op">-</span> <span class="dv">6</span><span class="op">*</span>n<span class="op">*</span>n<span class="op">*</span>n<span class="op">+</span><span class="dv">23</span><span class="op">*</span>n<span class="op">**</span><span class="dv">2</span><span class="op">-</span><span class="dv">18</span><span class="op">*</span>n<span class="op">+</span><span class="dv">24</span></span>
+<span id="cb8-4"><a aria-hidden="true" href="#cb8-4" tabindex="-1"></a></span>
+<span id="cb8-5"><a aria-hidden="true" href="#cb8-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Are all candidates valid for '6f(n)=(12m)^2':"</span>)</span>
+<span id="cb8-6"><a aria-hidden="true" href="#cb8-6" tabindex="-1"></a><span class="bu">print</span>(np.isclose(</span>
+<span id="cb8-7"><a aria-hidden="true" href="#cb8-7" tabindex="-1"></a>  [<span class="dv">6</span><span class="op">*</span>f(n)<span class="op">-</span>(<span class="dv">12</span><span class="op">*</span>m)<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> (n,m) <span class="kw">in</span> nm_candidates],</span>
+<span id="cb8-8"><a aria-hidden="true" href="#cb8-8" tabindex="-1"></a>  np.zeros((<span class="bu">len</span>(nm_candidates),)</span>
+<span id="cb8-9"><a aria-hidden="true" href="#cb8-9" tabindex="-1"></a>)).<span class="bu">all</span>())</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Are all candidates valid for '6f(n)=(12m)^2':
+True</code></pre>
+</div>
+</div>
+<p>So, all candidates solve <a class="quarto-xref" href="#eq-diophantine-2a">Equation 8</a> but not all candidates are integer solution that end up a power of 2. We can filter the bad ones out.</p>
+<div class="cell" data-execution_count="5" id="3eed3920">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" href="#cb10-1" tabindex="-1"></a>nm_solutions <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb10-2"><a aria-hidden="true" href="#cb10-2" tabindex="-1"></a><span class="cf">for</span> (n,p) <span class="kw">in</span> nm_candidates:</span>
+<span id="cb10-3"><a aria-hidden="true" href="#cb10-3" tabindex="-1"></a>  <span class="cf">if</span> n <span class="op">!=</span> <span class="bu">int</span>(n):</span>
+<span id="cb10-4"><a aria-hidden="true" href="#cb10-4" tabindex="-1"></a>    <span class="cf">continue</span></span>
+<span id="cb10-5"><a aria-hidden="true" href="#cb10-5" tabindex="-1"></a>  <span class="cf">if</span> p <span class="op">!=</span> <span class="bu">int</span>(p):</span>
+<span id="cb10-6"><a aria-hidden="true" href="#cb10-6" tabindex="-1"></a>    <span class="cf">continue</span></span>
+<span id="cb10-7"><a aria-hidden="true" href="#cb10-7" tabindex="-1"></a>  <span class="cf">if</span> n <span class="op">&lt;</span> <span class="dv">1</span> <span class="kw">or</span> p <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb10-8"><a aria-hidden="true" href="#cb10-8" tabindex="-1"></a>    <span class="cf">continue</span></span>
+<span id="cb10-9"><a aria-hidden="true" href="#cb10-9" tabindex="-1"></a>  <span class="cf">if</span> np.log2(np.<span class="bu">abs</span>(p)) <span class="op">!=</span> <span class="bu">int</span>(np.log2(np.<span class="bu">abs</span>(p))):</span>
+<span id="cb10-10"><a aria-hidden="true" href="#cb10-10" tabindex="-1"></a>    <span class="cf">continue</span></span>
+<span id="cb10-11"><a aria-hidden="true" href="#cb10-11" tabindex="-1"></a></span>
+<span id="cb10-12"><a aria-hidden="true" href="#cb10-12" tabindex="-1"></a>  nm_solutions.add((<span class="bu">int</span>(n), <span class="bu">int</span>(np.<span class="bu">abs</span>(p))))</span>
+<span id="cb10-13"><a aria-hidden="true" href="#cb10-13" tabindex="-1"></a></span>
+<span id="cb10-14"><a aria-hidden="true" href="#cb10-14" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Solutions (n,m):"</span>)</span>
+<span id="cb10-15"><a aria-hidden="true" href="#cb10-15" tabindex="-1"></a><span class="bu">print</span>(nm_solutions)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Solutions (n,m):
+{(1, 1), (5, 4), (3, 2), (10, 16)}</code></pre>
+</div>
+</div>
+<p>These solutions corresponded by construction to odd <span class="math inline">\(k\)</span>. Hence,</p>
+<div class="cell" data-execution_count="6" id="05b9e435">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" href="#cb12-1" tabindex="-1"></a>nk_solutions <span class="op">=</span> <span class="bu">set</span>((n,<span class="dv">2</span><span class="op">*</span><span class="bu">int</span>(np.log2(m))) <span class="cf">for</span> (n,m) <span class="kw">in</span> nm_solutions)</span>
+<span id="cb12-2"><a aria-hidden="true" href="#cb12-2" tabindex="-1"></a></span>
+<span id="cb12-3"><a aria-hidden="true" href="#cb12-3" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Solutions (n,k):"</span>)</span>
+<span id="cb12-4"><a aria-hidden="true" href="#cb12-4" tabindex="-1"></a><span class="bu">print</span>(nk_solutions)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Solutions (n,k):
+{(1, 0), (5, 4), (3, 2), (10, 8)}</code></pre>
+</div>
+</div>
+</section>
+<section class="level4" id="sec-second-quartic">
+<h4 class="anchored" data-anchor-id="sec-second-quartic">The second quartic</h4>
+<p><a class="quarto-xref" href="#eq-diophantine-2b">Equation 9</a> can be written as <a class="quarto-xref" href="#eq-general-equation">Equation 4</a> with the coefficients <span class="math display">\[
+  a=3, \quad b=-18, \quad c=69, \quad d=-54, \quad e=\sqrt{72}.
+\]</span> These are not all integers, so we cannot use the same strategy as with <a class="quarto-xref" href="#eq-diophantine-2a">Equation 8</a> directly. Observe that <span class="math inline">\((n,k)=(2,2)\)</span> is a solution. According to the remark on p. 106 of <a href="https://webs.ucm.es/BUCM/mat/doc8354.pdf">the elliptic handbook</a> we can solve for <span class="math inline">\(u\)</span> after substituting <span class="math inline">\(n=u+2\)</span>. When we do that, we get <span class="math display">\[
+  p^2 = 3 (u+2)^4-18 (u+2)^3+69 (u+2)^2-54 (u+2)+72 = 3 u^4+6 u^3+33 u^2+102 u+144
+\]</span> and thus the coefficients <span class="math display">\[
+  a=3, \quad b=6, \quad c=33, \quad d=102, \quad e=12.
+\]</span> All coefficients are indeed integer now. From this point, we will repeat the same steps as before.</p>
+<p><span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are</p>
+<div class="cell" data-execution_count="7" id="2593ba1e">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" href="#cb14-1" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb14-2"><a aria-hidden="true" href="#cb14-2" tabindex="-1"></a></span>
+<span id="cb14-3"><a aria-hidden="true" href="#cb14-3" tabindex="-1"></a>a,b,c,d,e <span class="op">=</span> <span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">33</span>,<span class="dv">102</span>,<span class="dv">12</span></span>
+<span id="cb14-4"><a aria-hidden="true" href="#cb14-4" tabindex="-1"></a></span>
+<span id="cb14-5"><a aria-hidden="true" href="#cb14-5" tabindex="-1"></a>A <span class="op">=</span> <span class="op">-</span>c<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="dv">3</span><span class="op">+</span>b<span class="op">*</span>d<span class="op">-</span><span class="dv">4</span><span class="op">*</span>e<span class="op">**</span><span class="dv">2</span><span class="op">*</span>a</span>
+<span id="cb14-6"><a aria-hidden="true" href="#cb14-6" tabindex="-1"></a>B <span class="op">=</span> <span class="dv">2</span><span class="op">/</span><span class="dv">27</span><span class="op">*</span>c<span class="op">*</span>c<span class="op">*</span>c <span class="op">-</span> (b<span class="op">*</span>c<span class="op">*</span>d)<span class="op">/</span><span class="dv">3</span> <span class="op">-</span> <span class="dv">8</span><span class="op">/</span><span class="dv">3</span><span class="op">*</span>e<span class="op">**</span><span class="dv">2</span><span class="op">*</span>a<span class="op">*</span>c <span class="op">+</span> e<span class="op">**</span><span class="dv">2</span><span class="op">*</span>b<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> a<span class="op">*</span>d<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb14-7"><a aria-hidden="true" href="#cb14-7" tabindex="-1"></a></span>
+<span id="cb14-8"><a aria-hidden="true" href="#cb14-8" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"A = </span><span class="sc">{</span>A<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-9"><a aria-hidden="true" href="#cb14-9" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"B = </span><span class="sc">{</span>B<span class="sc">}</span><span class="ss">"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A = -1479.0
+B = -5690.0</code></pre>
+</div>
+</div>
+<p>This we can put into Sage.</p>
+<pre class="{Sage}"><code>sage: E = EllipticCurve([-1479,-5690])
+sage: print([[p[0],p[1]] for p in E.integral_points()])
+[[-10, 90], [278, 4590]]</code></pre>
+<p>Again, we now have a solution to <a class="quarto-xref" href="#eq-elliptic">Equation 11</a>, but not to <a class="quarto-xref" href="#eq-diophantine-2b">Equation 9</a>. Working backwards and taking into account both sign options for sigma, we get a list of candidates for (n,m).</p>
+<div class="cell" data-execution_count="8" id="d84d59c2">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" href="#cb17-1" tabindex="-1"></a><span class="kw">def</span> map_integral_point_to_nm(integral_point, sigma):</span>
+<span id="cb17-2"><a aria-hidden="true" href="#cb17-2" tabindex="-1"></a>  x,y<span class="op">=</span>integral_point</span>
+<span id="cb17-3"><a aria-hidden="true" href="#cb17-3" tabindex="-1"></a></span>
+<span id="cb17-4"><a aria-hidden="true" href="#cb17-4" tabindex="-1"></a>  E <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>e</span>
+<span id="cb17-5"><a aria-hidden="true" href="#cb17-5" tabindex="-1"></a></span>
+<span id="cb17-6"><a aria-hidden="true" href="#cb17-6" tabindex="-1"></a>  X <span class="op">=</span> x<span class="op">-</span>c<span class="op">/</span><span class="dv">3</span></span>
+<span id="cb17-7"><a aria-hidden="true" href="#cb17-7" tabindex="-1"></a>  Y <span class="op">=</span> sigma<span class="op">*</span>y<span class="op">-</span>d<span class="op">/</span>E<span class="op">*</span>x<span class="op">+</span>c<span class="op">*</span>d<span class="op">/</span>(<span class="dv">3</span><span class="op">*</span>E)<span class="op">-</span>e<span class="op">*</span>b</span>
+<span id="cb17-8"><a aria-hidden="true" href="#cb17-8" tabindex="-1"></a></span>
+<span id="cb17-9"><a aria-hidden="true" href="#cb17-9" tabindex="-1"></a>  u <span class="op">=</span> (E<span class="op">*</span>(X<span class="op">+</span>c)<span class="op">-</span>d<span class="op">**</span><span class="dv">2</span><span class="op">/</span>E) <span class="op">/</span> Y</span>
+<span id="cb17-10"><a aria-hidden="true" href="#cb17-10" tabindex="-1"></a>  p <span class="op">=</span> <span class="op">-</span>e <span class="op">+</span> u<span class="op">*</span>(u<span class="op">*</span>X<span class="op">-</span>d)<span class="op">/</span>E</span>
+<span id="cb17-11"><a aria-hidden="true" href="#cb17-11" tabindex="-1"></a></span>
+<span id="cb17-12"><a aria-hidden="true" href="#cb17-12" tabindex="-1"></a>  n <span class="op">=</span> u <span class="op">+</span> <span class="dv">2</span></span>
+<span id="cb17-13"><a aria-hidden="true" href="#cb17-13" tabindex="-1"></a>  m <span class="op">=</span> p<span class="op">/</span><span class="dv">12</span></span>
+<span id="cb17-14"><a aria-hidden="true" href="#cb17-14" tabindex="-1"></a></span>
+<span id="cb17-15"><a aria-hidden="true" href="#cb17-15" tabindex="-1"></a>  <span class="cf">return</span> (n,m)</span>
+<span id="cb17-16"><a aria-hidden="true" href="#cb17-16" tabindex="-1"></a></span>
+<span id="cb17-17"><a aria-hidden="true" href="#cb17-17" tabindex="-1"></a>integral_points <span class="op">=</span> [[<span class="op">-</span><span class="dv">10</span>, <span class="dv">90</span>], [<span class="dv">278</span>, <span class="dv">4590</span>]]</span>
+<span id="cb17-18"><a aria-hidden="true" href="#cb17-18" tabindex="-1"></a></span>
+<span id="cb17-19"><a aria-hidden="true" href="#cb17-19" tabindex="-1"></a>nm_candidates <span class="op">=</span> []</span>
+<span id="cb17-20"><a aria-hidden="true" href="#cb17-20" tabindex="-1"></a><span class="cf">for</span> integral_point <span class="kw">in</span> integral_points:</span>
+<span id="cb17-21"><a aria-hidden="true" href="#cb17-21" tabindex="-1"></a>  nm_candidates.append(map_integral_point_to_nm(integral_point, <span class="dv">1</span>))</span>
+<span id="cb17-22"><a aria-hidden="true" href="#cb17-22" tabindex="-1"></a>  nm_candidates.append(map_integral_point_to_nm(integral_point, <span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb17-23"><a aria-hidden="true" href="#cb17-23" tabindex="-1"></a></span>
+<span id="cb17-24"><a aria-hidden="true" href="#cb17-24" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Candidate solutions (n,m):"</span>)</span>
+<span id="cb17-25"><a aria-hidden="true" href="#cb17-25" tabindex="-1"></a><span class="bu">print</span>(nm_candidates)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Candidate solutions (n,m):
+[(0.6433566433566433, -0.6537238984791433), (4.0, -2.0), (4.0, 2.0), (0.8327079829214645, 0.6766324657261432)]</code></pre>
+</div>
+</div>
+<p>This derived list of candidate solutions does not include the trivial solutions <span class="math inline">\((n,m)=(u+2,p/12)=(2,\pm e/12)\)</span>.</p>
+<div class="cell" data-execution_count="9" id="7c818728">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-hidden="true" href="#cb19-1" tabindex="-1"></a>nm_candidates.append((<span class="dv">2</span>,e<span class="op">/</span><span class="dv">12</span>))</span>
+<span id="cb19-2"><a aria-hidden="true" href="#cb19-2" tabindex="-1"></a>nm_candidates.append((<span class="dv">2</span>,<span class="op">-</span>e<span class="op">/</span><span class="dv">12</span>))</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s do a check check to see that indeed these are all valid candidates.</p>
+<div class="cell" data-execution_count="10" id="934e010d">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a aria-hidden="true" href="#cb20-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb20-2"><a aria-hidden="true" href="#cb20-2" tabindex="-1"></a></span>
+<span id="cb20-3"><a aria-hidden="true" href="#cb20-3" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Are all candidates valid for '3f(n)=(12m)^2':"</span>)</span>
+<span id="cb20-4"><a aria-hidden="true" href="#cb20-4" tabindex="-1"></a><span class="bu">print</span>(np.isclose(</span>
+<span id="cb20-5"><a aria-hidden="true" href="#cb20-5" tabindex="-1"></a>  [<span class="dv">3</span><span class="op">*</span>f(n)<span class="op">-</span>(<span class="dv">12</span><span class="op">*</span>m)<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> (n,m) <span class="kw">in</span> nm_candidates],</span>
+<span id="cb20-6"><a aria-hidden="true" href="#cb20-6" tabindex="-1"></a>  np.zeros((<span class="bu">len</span>(nm_candidates),)</span>
+<span id="cb20-7"><a aria-hidden="true" href="#cb20-7" tabindex="-1"></a>)).<span class="bu">all</span>())</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Are all candidates valid for '3f(n)=(12m)^2':
+True</code></pre>
+</div>
+</div>
+<p>So, all candidates solve <a class="quarto-xref" href="#eq-diophantine-2a">Equation 8</a> but not all candidates are integer solution that end up a power of 2. We can filter the bad ones out.</p>
+<div class="cell" data-execution_count="11" id="b137a94a">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a aria-hidden="true" href="#cb22-1" tabindex="-1"></a>nm_solutions <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb22-2"><a aria-hidden="true" href="#cb22-2" tabindex="-1"></a><span class="cf">for</span> (n,p) <span class="kw">in</span> nm_candidates:</span>
+<span id="cb22-3"><a aria-hidden="true" href="#cb22-3" tabindex="-1"></a>  <span class="cf">if</span> n <span class="op">!=</span> <span class="bu">int</span>(n):</span>
+<span id="cb22-4"><a aria-hidden="true" href="#cb22-4" tabindex="-1"></a>    <span class="cf">continue</span></span>
+<span id="cb22-5"><a aria-hidden="true" href="#cb22-5" tabindex="-1"></a>  <span class="cf">if</span> p <span class="op">!=</span> <span class="bu">int</span>(p):</span>
+<span id="cb22-6"><a aria-hidden="true" href="#cb22-6" tabindex="-1"></a>    <span class="cf">continue</span></span>
+<span id="cb22-7"><a aria-hidden="true" href="#cb22-7" tabindex="-1"></a>  <span class="cf">if</span> n <span class="op">&lt;</span> <span class="dv">1</span> <span class="kw">or</span> p <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb22-8"><a aria-hidden="true" href="#cb22-8" tabindex="-1"></a>    <span class="cf">continue</span></span>
+<span id="cb22-9"><a aria-hidden="true" href="#cb22-9" tabindex="-1"></a>  <span class="cf">if</span> np.log2(np.<span class="bu">abs</span>(p)) <span class="op">!=</span> <span class="bu">int</span>(np.log2(np.<span class="bu">abs</span>(p))):</span>
+<span id="cb22-10"><a aria-hidden="true" href="#cb22-10" tabindex="-1"></a>    <span class="cf">continue</span></span>
+<span id="cb22-11"><a aria-hidden="true" href="#cb22-11" tabindex="-1"></a></span>
+<span id="cb22-12"><a aria-hidden="true" href="#cb22-12" tabindex="-1"></a>  nm_solutions.add((<span class="bu">int</span>(n), <span class="bu">int</span>(np.<span class="bu">abs</span>(p))))</span>
+<span id="cb22-13"><a aria-hidden="true" href="#cb22-13" tabindex="-1"></a></span>
+<span id="cb22-14"><a aria-hidden="true" href="#cb22-14" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Solutions (n,m):"</span>)</span>
+<span id="cb22-15"><a aria-hidden="true" href="#cb22-15" tabindex="-1"></a><span class="bu">print</span>(nm_solutions)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Solutions (n,m):
+{(2, 1), (4, 2)}</code></pre>
+</div>
+</div>
+<p>These solutions corresponded by construction to odd <span class="math inline">\(k\)</span>. Hence,</p>
+<div class="cell" data-execution_count="12" id="59e60965">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a aria-hidden="true" href="#cb24-1" tabindex="-1"></a>nk_solutions <span class="op">=</span> <span class="bu">set</span>((n,<span class="dv">2</span><span class="op">*</span><span class="bu">int</span>(np.log2(m))<span class="op">+</span><span class="dv">1</span>) <span class="cf">for</span> (n,m) <span class="kw">in</span> nm_solutions)</span>
+<span id="cb24-2"><a aria-hidden="true" href="#cb24-2" tabindex="-1"></a></span>
+<span id="cb24-3"><a aria-hidden="true" href="#cb24-3" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Solutions (n,k):"</span>)</span>
+<span id="cb24-4"><a aria-hidden="true" href="#cb24-4" tabindex="-1"></a><span class="bu">print</span>(nk_solutions)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Solutions (n,k):
+{(2, 1), (4, 3)}</code></pre>
+</div>
+</div>
+</section>
+<section class="level4" id="the-solutions">
+<h4 class="anchored" data-anchor-id="the-solutions">The Solutions</h4>
+<p>We started with <a class="quarto-xref" href="#eq-diophantine-a">Equation 6</a> and <a class="quarto-xref" href="#eq-diophantine-b">Equation 7</a> and worked in <a class="quarto-xref" href="#sec-first-quartic">Section 4.2.1</a> and <a class="quarto-xref" href="#sec-second-quartic">Section 4.2.2</a> out what the corresponding solution pairs <span class="math inline">\((n,k)\)</span> are. For <a class="quarto-xref" href="#sec-first-quartic">Section 4.2.1</a> this gave <span class="math display">\[
+  \{(1, 0), (5, 4), (3, 2), (10, 8)\}
+\]</span> and for <a class="quarto-xref" href="#sec-second-quartic">Section 4.2.2</a> this gave <span class="math display">\[
+  \{(2, 1), (4, 3)\}
+\]</span> So, in total we have the solution pairs <span class="math display">\[
+  \{(1, 0), (2, 1), (3, 2), (4, 3), (5, 4), (10, 8)\}
+\]</span> These are the solutions corresponding to the ones shown in the example, with the addition of <span class="math inline">\((n,k)=(10, 8)\)</span>. Therefore, the answer to our second question is: Yes, but only once at <span class="math inline">\(n=10\)</span>.</p>
+</section>
+</section>
+</section>
+<section class="level2" id="references">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div class="references csl-bib-body hanging-indent" data-entry-spacing="0" id="refs" role="list">
+<div class="csl-entry" id="ref-mosers_theorem_cicle_division" role="listitem">
+Cmglee. 2023. <span>“Circle Division by Chords.”</span> Wikimedia Foundation; Licensed under Creative Commons Attribution-ShareAlike 4.0 International License (<a class="uri" href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>). 2023. <a href="https://commons.wikimedia.org/wiki/File:Circle_division_by_chords.svg">https://commons.wikimedia.org/wiki/File:Circle_division_by_chords.svg</a>.
+</div>
+<div class="csl-entry" id="ref-connell_elliptic_1999" role="listitem">
+Connell, Ian. 1999. <em>Elliptic Curve Handbook</em>. <a href="https://webs.ucm.es/BUCM/mat/doc8354.pdf">https://webs.ucm.es/BUCM/mat/doc8354.pdf</a>.
+</div>
+<div class="csl-entry" id="ref-tzanakis_solving_1996" role="listitem">
+Tzanakis, N. 1996. <span>“Solving Elliptic Diophantine Equations by Estimating Linear Forms in Elliptic Logarithms. The Case of Quartic Equations.”</span> <em>Acta Arithmetica</em> 75 (2): 165–90. <a href="https://doi.org/10.4064/aa-75-2-165-190">https://doi.org/10.4064/aa-75-2-165-190</a>.
+</div>
+</div>
+</section>
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div>
+  
+</body>
+
+</html>

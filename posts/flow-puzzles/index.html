@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-1.3.433">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+  <title></title>
+  <style>
+    code {
+      white-space: pre-wrap;
+    }
+
+    span.smallcaps {
+      font-variant: small-caps;
+    }
+
+    div.columns {
+      display: flex;
+      gap: min(4vw, 1.5em);
+    }
+
+    div.column {
+      flex: auto;
+      overflow-x: auto;
+    }
+
+    div.hanging-indent {
+      margin-left: 1.5em;
+      text-indent: -1.5em;
+    }
+
+    ul.task-list {
+      list-style: none;
+    }
+
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em;
+      /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
+      vertical-align: middle;
+    }
+
+    /* CSS for syntax highlighting */
+    pre>code.sourceCode {
+      white-space: pre;
+      position: relative;
+    }
+
+    pre>code.sourceCode>span {
+      display: inline-block;
+      line-height: 1.25;
+    }
+
+    pre>code.sourceCode>span:empty {
+      height: 1.2em;
+    }
+
+    .sourceCode {
+      overflow: visible;
+    }
+
+    code.sourceCode>span {
+      color: inherit;
+      text-decoration: inherit;
+    }
+
+    div.sourceCode {
+      margin: 1em 0;
+    }
+
+    pre.sourceCode {
+      margin: 0;
+    }
+
+    @media screen {
+      div.sourceCode {
+        overflow: auto;
+      }
+    }
+
+    @media print {
+      pre>code.sourceCode {
+        white-space: pre-wrap;
+      }
+
+      pre>code.sourceCode>span {
+        text-indent: -5em;
+        padding-left: 5em;
+      }
+    }
+
+    pre.numberSource code {
+      counter-reset: source-line 0;
+    }
+
+    pre.numberSource code>span {
+      position: relative;
+      left: -4em;
+      counter-increment: source-line;
+    }
+
+    pre.numberSource code>span>a:first-child::before {
+      content: counter(source-line);
+      position: relative;
+      left: -1em;
+      text-align: right;
+      vertical-align: baseline;
+      border: none;
+      display: inline-block;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      padding: 0 4px;
+      width: 4em;
+    }
+
+    pre.numberSource {
+      margin-left: 3em;
+      padding-left: 4px;
+    }
+
+    div.sourceCode {}
+
+    @media screen {
+      pre>code.sourceCode>span>a:first-child::before {
+        text-decoration: underline;
+      }
+    }
+  </style>
+
+  
+  <link type="text/css" href="/static/blog/shared.css" rel="stylesheet" />
+  <link type="text/css" href="/static/blog/nav.css" rel="stylesheet" />
+
+  <script type="text/javascript" src="/static/blog/notebooks/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript" src="/static/blog/notebooks/quarto-html/quarto.js"></script>
+  <script type="text/javascript" src="/static/blog/notebooks/quarto-html/popper.min.js"></script>
+  <script type="text/javascript" src="/static/blog/notebooks/quarto-html/tippy.umd.min.js"></script>
+  <script type="text/javascript" src="/static/blog/notebooks/quarto-html/anchor.min.js"></script>
+
+  <link href="/static/blog/notebooks/quarto-html/tippy.css" rel="stylesheet">
+  <link href="/static/blog/notebooks/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+  <script type="text/javascript" src="/static/blog/notebooks/bootstrap/bootstrap.min.js"></script>
+  <link href="/static/blog/notebooks/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/blog/notebooks/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"
+    integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+    crossorigin="anonymous"></script>
+  <script type="application/javascript">define('jquery', [], function () { return window.jQuery; })</script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    window.PlotlyConfig = { MathJaxConfig: 'local' };
+    if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) { window.MathJax.Hub.Config({ SVG: { font: "STIX-Web" } }); }
+    if (typeof require !== 'undefined') {
+      require.undef("plotly");
+      requirejs.config({
+        paths: {
+          'plotly': ['https://cdn.plot.ly/plotly-2.24.1.min']
+        }
+      });
+      require(['plotly'], function (Plotly) {
+        window._Plotly = Plotly;
+      });
+    }
+  </script>
+
+
+
+</head>
+
+<body class="">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+    <div class="container px-5 w-100">
+        <a class="navbar-brand" href="/"><span class="fw-bolder text-title">Tjeerd Jan Heeringa</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/posts">Blog</a></li>
+                <li class="nav-item"><a class="nav-link" href="/talks">Talks</a></li>
+                <li class="nav-item"><a class="nav-link" href="/papers">Papers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/posters">Posters</a></li>
+                <li class="nav-item"><a class="nav-link" href="/collaborators">Collaborators</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+  
+    
+
+
+
+
+<div class="page-columns page-rows-contents page-layout-article" id="quarto-content">
+<main class="content" id="quarto-document-content">
+<header class="quarto-title-block default" id="title-block-header">
+<div class="quarto-title">
+<h1 class="title">Flow puzzles</h1>
+<p class="subtitle lead">Solved using Mixed Integer Programming.</p>
+</div>
+<div class="quarto-title-meta">
+</div>
+<div>
+<div class="abstract">
+<div class="block-title">Abstract</div>
+<p>Flow puzzles are spare-time amusement. In this post, we show how to automatically solve them.</p>
+</div>
+</div>
+</header>
+<section class="level2" id="the-rules">
+<h2 class="anchored" data-anchor-id="the-rules">The Rules</h2>
+<p>Flow puzzles are puzzles in which you are given a grid with uniquely coloured pairs of points. You are tasked to connect the pairs using a line. You do this by assigning colours to tiles in the grid. The coloured tiles have to touch horizontally or vertically a tile with the same colour. You are only allowed to assign a tile a single colour.When you have found a valid colour assignment such that each coloured pair is connected using a line, you have solved the puzzle.</p>
+</section>
+<section class="level2" id="example">
+<h2 class="anchored" data-anchor-id="example">Example</h2>
+<p>In <a class="quarto-xref" href="#fig-flow-unsolved">Figure 1</a>, we see an example of a flow puzzle. We are given 15 pairs of points, ranging in colour from white to dark blue. We need to connect all of them, so we need to draw 15 uniquely coloured line with all the tiles in that line horizontally or vertically connected.</p>
+<div class="quarto-figure quarto-figure-center quarto-float anchored" id="fig-flow-unsolved">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flow-unsolved-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img class="img-fluid figure-img" src="/static/blog/notebooks/flow_puzzles/flow_unsolved.png"/>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-unsolved-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 1: An example of an unsolved flow puzzle.
+</figcaption>
+</figure>
+</div>
+<p>Let us take a look at the purple pairs in the top right corner. There needs to be a line from (10,0) to (13,0), i.e. from the left point to the right (or vice-versa). One way of doing this is like in <a class="quarto-xref" href="#fig-flow-partial">Figure 2</a>.</p>
+<div class="quarto-figure quarto-figure-center quarto-float anchored" id="fig-flow-partial">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flow-partial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img class="img-fluid figure-img" src="/static/blog/notebooks/flow_puzzles/flow_partial.png"/>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-partial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 2: Partial solve of <a class="quarto-xref" href="#fig-flow-unsolved">Figure 1</a>.
+</figcaption>
+</figure>
+</div>
+<p>In general, there can be multiple ways of connecting each pair. We just have to find a connection such that all the other can still be connected. For this example puzzle, one solution is shown in <a class="quarto-xref" href="#fig-flow-solved">Figure 3</a>.</p>
+<div class="quarto-figure quarto-figure-center quarto-float anchored" id="fig-flow-solved">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flow-solved-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img class="img-fluid figure-img" src="/static/blog/notebooks/flow_puzzles/flow_solved.png"/>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-solved-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 3: <a class="quarto-xref" href="#fig-flow-unsolved">Figure 1</a> solved.
+</figcaption>
+</figure>
+</div>
+<p>Not all flow puzzles have unique solutions. In particular, flow puzzles that do not need to use every tile in order to connect all pairs tend to have non-unique solutions.</p>
+</section>
+<section class="level2" id="the-bridge">
+<h2 class="anchored" data-anchor-id="the-bridge">The Bridge</h2>
+<p>There are several variations to flow puzzle rules. One variation is for example that you are allowed to “wrap around”, i.e. you are allowed to connect the left-most and right-most tile when they are in the same row. Another variation, one that we will be implementing, is that you are allowed to build a “bridge”. This means that you are allowed to go under another colour if that has three tiles in a row in the perpendicular direction. To understand what his means, look at the example in <a class="quarto-xref" href="#fig-flow-bridge">Figure 4</a>.</p>
+<div class="quarto-figure quarto-figure-center quarto-float anchored" id="fig-flow-bridge">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flow-bridge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img class="img-fluid figure-img" src="/static/blog/notebooks/flow_puzzles/flow_bridge.png"/>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-bridge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 4: A flow puzzle example with bridges.
+</figcaption>
+</figure>
+</div>
+<p>In the example, green passes through the tiles (3,3), (4,3) and (5,3). This is 3 tiles in a row, so the red tiles are allowed to go under it perpendicularly. Similarly, pink passes through the tiles (3,6), (4,6) and (5,6). Hence, yellow can pass under it perpendicularly.</p>
+<p>Allowing bridges creates more paths between the pairs. This means it can be harder to solve. It definitely complicates the mixed-integer program (MIP) a bit, whence we consider this case.</p>
+</section>
+<section class="level2" id="mixed-integer-program">
+<h2 class="anchored" data-anchor-id="mixed-integer-program">Mixed-integer program</h2>
+<p>We want to solve the flow puzzle with mixed-integer programming. It is an appropriate solution method, since, just like Sudoku, it is a problem where each tile has a yes-no state, e.g. pink: yes, blue: no. We will first solve the base problem, and then expand it to solve the bridge-variation.</p>
+<section class="level3" id="base-problem">
+<h3 class="anchored" data-anchor-id="base-problem">Base problem</h3>
+<p>We start with a rectangular grid. Each tile will get a single colour. We will use one-hot encoding for this. This means that our state variable <span class="math inline">\(x_{ijc}\)</span> is a binary variable with three parameters: the first two parameters are for the row and the column, and the third parameter is for the colour. We denote with <span class="math inline">\(G\)</span> all <span class="math inline">\(g=(i,j)\)</span> combinations in our grid, and with <span class="math inline">\(C\)</span> all the colours <span class="math inline">\(c\)</span>. For each colour we will have a source and a target location. Together the souce and target make the coloured pairs. Which of the pairs is assigned source and which target doesn’t matter. We denote the location of the source of colour <span class="math inline">\(c\)</span> with <span class="math inline">\(S_{c}\)</span> and the target similarly <span class="math inline">\(T_c\)</span>. The combination of the all we denote <span class="math inline">\(E_c\)</span>, i.e. <span class="math inline">\(E_c=S_c\cup T_c\)</span> and <span class="math inline">\(E=\cup_c E_c\)</span>. With <span class="math inline">\(N((i,j))\)</span> we denote the horizontally and vertically neighbouring tiles of the tile <span class="math inline">\((i,j)\)</span> excluding <span class="math inline">\((i,j)\)</span> inside <span class="math inline">\(G\)</span>. Our MIP is following:</p>
+<p><span class="math display">\[\begin{align}
+    \min_{x} &amp; \sum_{ijc\in G\times C} x_{ijc} \\
+    \text{s.t.}
+    &amp; \quad \sum_{c\in C} x_{ijc} \leq 1 &amp;&amp; (i,j)\in G \\
+    &amp; \quad x_{S_c,c} = 1 &amp;&amp; c\in C \\
+    &amp; \quad x_{T_c,c} = 1 &amp;&amp; c\in C \\
+    &amp; \quad \sum_{(i,j)\in N(S_c)}x_{ijc} = 1 &amp;&amp; c\in C \\
+    &amp; \quad \sum_{(i,j)\in N(T_c)}x_{ijc} = 1 &amp;&amp; c\in C \\
+    &amp; \quad \sum_{(k,\ell)\in N(g)}x_{k\ell c} \geq 2x_{ijc} &amp;&amp; g\in G\backslash E\\
+    &amp; \quad \sum_{(k,\ell)\in N(g)}x_{k\ell c} + 2x_{ijc} \leq  4  &amp;&amp; g\in G\backslash E \\
+\end{align}\]</span></p>
+<p>We have the option to choose a particular solution, when the MIP is feasible. So, although any feasible solution is sufficient for solving the puzzle, we choose to minimize the number of coloured tiles. The first constraint enforces that each tile can have at most 1 colour. The second and third constraints set the colours of the source and target tiles. The fourth and fifth constraints make sure that one adjacent tile of the source and target tiles is set. The sixth and the seventh constraints enforce that the tile is coloured when two neighbouring tiles are coloured. Combined the fourth ’till the seventh constraint enforce a line between all source and target pairs.</p>
+<p>NB: We have now defined <span class="math inline">\(G\)</span> to be all available locations <span class="math inline">\((i,j)\)</span>. In practice, it is more convenient to create a big enough rectangular grid <span class="math inline">\(I\times J\)</span> with <span class="math inline">\(I\)</span> the number of rows and <span class="math inline">\(J\)</span> the number of columns and block the tiles not in the grid. These blocked tiles are exactly <span class="math inline">\(B=(I\times J)\backslash G\)</span>. We can do this blocking by adding the constraint <span class="math display">\[
+    x_{ijc} = 0  
+\]</span> for all <span class="math inline">\((i,j)\in B\)</span> and <span class="math inline">\(c\in C\)</span>.</p>
+</section>
+<section class="level3" id="bridge-variation">
+<h3 class="anchored" data-anchor-id="bridge-variation">Bridge-variation</h3>
+<p>For the bridge-variation, we need to add constraints that handle the crossings. To make this possible, we add variables that represent whether at a particular tile we have three tiles with the same colour in the vertical direction or in the horizontal direction direction. These variables are denoted by <span class="math inline">\(v_{ijc}\)</span> and <span class="math inline">\(h_{ijc}\)</span>. For convenience, we add a variable <span class="math inline">\(p_{ijc}\)</span> that is <span class="math inline">\(1\)</span> when both <span class="math inline">\(v_{ijc}\)</span> and <span class="math inline">\(h_{ijc}\)</span> are <span class="math inline">\(1\)</span> for some colour <span class="math inline">\(c\)</span> and <span class="math inline">\(0\)</span> otherwise. Denote with <span class="math inline">\(V((i,j))\)</span> and <span class="math inline">\(H((i,j))\)</span> the vertical and horizontal tiles adjacent to <span class="math inline">\((i,j)\)</span>, respectively. These include <span class="math inline">\((i,j)\)</span>. We replace the MIP with the following:</p>
+<p><span class="math display">\[\begin{align}
+    \min_{x} &amp; \sum_{ijc\in G\times C} x_{ijc} \\
+    \text{s.t.}
+    &amp; \quad \sum_{c\in C}x_{ijc} \leq 1+p_{ij} &amp;&amp; (i,j)\in G \\
+    &amp; \quad x_{S_c,c} = 1 &amp;&amp; c\in C \\
+    &amp; \quad x_{T_c,c} = 1 &amp;&amp; c\in C \\
+    &amp; \quad \sum_{(i,j)\in N(S_c)}x_{ijc} = 1 &amp;&amp; c\in C \\
+    &amp; \quad \sum_{(i,j)\in N(T_c)}x_{ijc} = 1 &amp;&amp; c\in C \\
+    &amp; \quad \sum_{(k,\ell)\in N(g)}x_{k\ell c} \geq 2x_{ijc} &amp;&amp; g\in G\backslash E\\
+    &amp; \quad \sum_{(k,\ell)\in N(g)}x_{k\ell c} + 2x_{ijc} \leq  4  &amp;&amp; g\in G\backslash E \\
+    &amp; \quad \sum_{c\in C}h_{ijc} \leq p_{ij} &amp;&amp; (i,j)\in G \\
+    &amp; \quad \sum_{c\in C}v_{ijc} \leq p_{ij} &amp;&amp; (i,j)\in G \\
+    &amp; \quad \sum_{c\in C}v_{ijc}+h_{ijc} -1 \leq p_{ij} &amp;&amp; (i,j)\in G \\
+    &amp; \quad h_{ijc} \leq x_{k\ell c} &amp;&amp; (i,j)\in G, (k,\ell)\in H((i,j)), c\in C \\
+    &amp; \quad v_{ijc} \leq x_{k\ell c} &amp;&amp; (i,j)\in G, (k,\ell)\in V((i,j)), c\in C \\
+    &amp; \quad \sum_{(k,\ell)\in H((i,j))}x_{k\ell c}-2 \leq h_{ijc} &amp;&amp; (i,j)\in G, c\in C \\
+    &amp; \quad \sum_{(k,\ell)\in V((i,j))}x_{k\ell c}-2 \leq v_{ijc} &amp;&amp; (i,j)\in G, c\in C \\
+\end{align}\]</span></p>
+<p>Up to the seventh constraint, we only changed the first constraint compared to the previous MIP. We add <span class="math inline">\(p_{ij}\)</span> to the right-hand side of the constraint to support 2 <span class="math inline">\(x_{ijc}\)</span> being <span class="math inline">\(1\)</span> on <span class="math inline">\((i,j)\)</span>. The eight and nineth constraints enforce that at most one colour can have the three adjecent vertical or horizontal tiles. The tenth constraint enforces that <span class="math inline">\(p_{ij}\)</span> is <span class="math inline">\(1\)</span> when there is a vertical and horizontal triple of the same colour. The eighth ’till tenth constraint together with the first constraint make sure that two colours are possible only when there is a bridge, which possibility, existence and usage is signaled with <span class="math inline">\(p_{ij}\)</span>. The eleventh and thirteenth constraint together signal that <span class="math inline">\(h_{ijc}=1\)</span> if and only if <span class="math inline">\(x_{k\ell c}=1\)</span> for all <span class="math inline">\((k,\ell)\in H((i,j))\)</span>. The twelveth and fourteenth constraint together signal that <span class="math inline">\(v_{ijc}=1\)</span> if and only if <span class="math inline">\(x_{k\ell c}=1\)</span> for all <span class="math inline">\((k,\ell)\in V((i,j))\)</span>.</p>
+</section>
+</section>
+<section class="level2" id="implementation">
+<h2 class="anchored" data-anchor-id="implementation">Implementation</h2>
+<p>We have implemented the bridge-variation with the blocking method for the grid.</p>
+<p>The MIP is implemented in the following function.</p>
+<div class="cell" data-execution_count="1" id="825c3804">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="im">from</span> pyscipopt <span class="im">import</span> Model, quicksum</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a><span class="kw">def</span> solve_puzzle(model_name, num_rows, num_columns, num_colors, blocked<span class="op">=</span>[], trajectory_terminals<span class="op">=</span>[]):</span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a>    <span class="co"># Create a MIP model</span></span>
+<span id="cb1-5"><a aria-hidden="true" href="#cb1-5" tabindex="-1"></a>    model <span class="op">=</span> Model(model_name)</span>
+<span id="cb1-6"><a aria-hidden="true" href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a aria-hidden="true" href="#cb1-7" tabindex="-1"></a>    <span class="co"># Define the decision variables x[i, j, c], h[i, j, c], v[i, j, c], and p[i, j]</span></span>
+<span id="cb1-8"><a aria-hidden="true" href="#cb1-8" tabindex="-1"></a>    x <span class="op">=</span> {}</span>
+<span id="cb1-9"><a aria-hidden="true" href="#cb1-9" tabindex="-1"></a>    h <span class="op">=</span> {}</span>
+<span id="cb1-10"><a aria-hidden="true" href="#cb1-10" tabindex="-1"></a>    v <span class="op">=</span> {}</span>
+<span id="cb1-11"><a aria-hidden="true" href="#cb1-11" tabindex="-1"></a>    p <span class="op">=</span> {}</span>
+<span id="cb1-12"><a aria-hidden="true" href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a aria-hidden="true" href="#cb1-13" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_rows):</span>
+<span id="cb1-14"><a aria-hidden="true" href="#cb1-14" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_columns):</span>
+<span id="cb1-15"><a aria-hidden="true" href="#cb1-15" tabindex="-1"></a>            p[i, j] <span class="op">=</span> model.addVar(vtype<span class="op">=</span><span class="st">"B"</span>, name<span class="op">=</span><span class="ss">f"p_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-16"><a aria-hidden="true" href="#cb1-16" tabindex="-1"></a></span>
+<span id="cb1-17"><a aria-hidden="true" href="#cb1-17" tabindex="-1"></a>            <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors):</span>
+<span id="cb1-18"><a aria-hidden="true" href="#cb1-18" tabindex="-1"></a>                x[i, j, c] <span class="op">=</span> model.addVar(vtype<span class="op">=</span><span class="st">"B"</span>, name<span class="op">=</span><span class="ss">f"X_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-19"><a aria-hidden="true" href="#cb1-19" tabindex="-1"></a>                h[i, j, c] <span class="op">=</span> model.addVar(vtype<span class="op">=</span><span class="st">"B"</span>, name<span class="op">=</span><span class="ss">f"h_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-20"><a aria-hidden="true" href="#cb1-20" tabindex="-1"></a>                v[i, j, c] <span class="op">=</span> model.addVar(vtype<span class="op">=</span><span class="st">"B"</span>, name<span class="op">=</span><span class="ss">f"v_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-21"><a aria-hidden="true" href="#cb1-21" tabindex="-1"></a></span>
+<span id="cb1-22"><a aria-hidden="true" href="#cb1-22" tabindex="-1"></a>    <span class="co"># Define the objective function to minimize the sum over x[i, j, c]</span></span>
+<span id="cb1-23"><a aria-hidden="true" href="#cb1-23" tabindex="-1"></a>    model.setObjective(quicksum(x[i, j, c] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_rows) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_columns) <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors)), <span class="st">"minimize"</span>)</span>
+<span id="cb1-24"><a aria-hidden="true" href="#cb1-24" tabindex="-1"></a></span>
+<span id="cb1-25"><a aria-hidden="true" href="#cb1-25" tabindex="-1"></a>    <span class="co"># Constraint: p on (i, j) should be less than h on (i, j) summed over the colors</span></span>
+<span id="cb1-26"><a aria-hidden="true" href="#cb1-26" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_rows):</span>
+<span id="cb1-27"><a aria-hidden="true" href="#cb1-27" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_columns):</span>
+<span id="cb1-28"><a aria-hidden="true" href="#cb1-28" tabindex="-1"></a>            model.addCons(quicksum(h[i, j, c] <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors)) <span class="op">&gt;=</span> p[i, j])</span>
+<span id="cb1-29"><a aria-hidden="true" href="#cb1-29" tabindex="-1"></a></span>
+<span id="cb1-30"><a aria-hidden="true" href="#cb1-30" tabindex="-1"></a>    <span class="co"># Constraint: p on (i, j) should be less than v on (i, j) summed over the colors</span></span>
+<span id="cb1-31"><a aria-hidden="true" href="#cb1-31" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_rows):</span>
+<span id="cb1-32"><a aria-hidden="true" href="#cb1-32" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_columns):</span>
+<span id="cb1-33"><a aria-hidden="true" href="#cb1-33" tabindex="-1"></a>            model.addCons(quicksum(v[i, j, c] <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors)) <span class="op">&gt;=</span> p[i, j])</span>
+<span id="cb1-34"><a aria-hidden="true" href="#cb1-34" tabindex="-1"></a></span>
+<span id="cb1-35"><a aria-hidden="true" href="#cb1-35" tabindex="-1"></a>    <span class="co"># Constraint: p on (i, j) should be larger than v+h on (i, j) summed over the colors minus 1</span></span>
+<span id="cb1-36"><a aria-hidden="true" href="#cb1-36" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_rows):</span>
+<span id="cb1-37"><a aria-hidden="true" href="#cb1-37" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_columns):</span>
+<span id="cb1-38"><a aria-hidden="true" href="#cb1-38" tabindex="-1"></a>            model.addCons(quicksum(v[i, j, c] <span class="op">+</span> h[i, j, c] <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors)) <span class="op">-</span> <span class="dv">1</span> <span class="op">&lt;=</span> p[i, j])</span>
+<span id="cb1-39"><a aria-hidden="true" href="#cb1-39" tabindex="-1"></a></span>
+<span id="cb1-40"><a aria-hidden="true" href="#cb1-40" tabindex="-1"></a>    <span class="co"># Constraint: The sum over the colors of x[i, j, c] on location (i, j) should be less than 1 + P[i, j]</span></span>
+<span id="cb1-41"><a aria-hidden="true" href="#cb1-41" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_rows):</span>
+<span id="cb1-42"><a aria-hidden="true" href="#cb1-42" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_columns):</span>
+<span id="cb1-43"><a aria-hidden="true" href="#cb1-43" tabindex="-1"></a>            model.addCons(quicksum(x[i, j, c] <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors)) <span class="op">&lt;=</span> <span class="dv">1</span> <span class="op">+</span> p[i, j])</span>
+<span id="cb1-44"><a aria-hidden="true" href="#cb1-44" tabindex="-1"></a></span>
+<span id="cb1-45"><a aria-hidden="true" href="#cb1-45" tabindex="-1"></a>    <span class="co"># Constraint: h plus v must be at most 1 for every (i, j, c)</span></span>
+<span id="cb1-46"><a aria-hidden="true" href="#cb1-46" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_rows):</span>
+<span id="cb1-47"><a aria-hidden="true" href="#cb1-47" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_columns):</span>
+<span id="cb1-48"><a aria-hidden="true" href="#cb1-48" tabindex="-1"></a>            <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors):</span>
+<span id="cb1-49"><a aria-hidden="true" href="#cb1-49" tabindex="-1"></a>                model.addCons(h[i, j, c] <span class="op">+</span> v[i, j, c] <span class="op">&lt;=</span> <span class="dv">1</span>)</span>
+<span id="cb1-50"><a aria-hidden="true" href="#cb1-50" tabindex="-1"></a></span>
+<span id="cb1-51"><a aria-hidden="true" href="#cb1-51" tabindex="-1"></a>    <span class="co"># Constraint: h on location (i, j) is at most x on location (i-1, j), x on location (i, j), and x on location (i+1, j)</span></span>
+<span id="cb1-52"><a aria-hidden="true" href="#cb1-52" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_rows):</span>
+<span id="cb1-53"><a aria-hidden="true" href="#cb1-53" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_columns):</span>
+<span id="cb1-54"><a aria-hidden="true" href="#cb1-54" tabindex="-1"></a>            <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors):</span>
+<span id="cb1-55"><a aria-hidden="true" href="#cb1-55" tabindex="-1"></a>                <span class="cf">if</span> i <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb1-56"><a aria-hidden="true" href="#cb1-56" tabindex="-1"></a>                    model.addCons(h[i, j, c] <span class="op">&lt;=</span> x[i<span class="op">-</span><span class="dv">1</span>, j, c])</span>
+<span id="cb1-57"><a aria-hidden="true" href="#cb1-57" tabindex="-1"></a>                model.addCons(h[i, j, c] <span class="op">&lt;=</span> x[i, j, c])</span>
+<span id="cb1-58"><a aria-hidden="true" href="#cb1-58" tabindex="-1"></a>                <span class="cf">if</span> i <span class="op">!=</span> num_rows<span class="op">-</span><span class="dv">1</span>:</span>
+<span id="cb1-59"><a aria-hidden="true" href="#cb1-59" tabindex="-1"></a>                    model.addCons(h[i, j, c] <span class="op">&lt;=</span> x[i<span class="op">+</span><span class="dv">1</span>, j, c])</span>
+<span id="cb1-60"><a aria-hidden="true" href="#cb1-60" tabindex="-1"></a></span>
+<span id="cb1-61"><a aria-hidden="true" href="#cb1-61" tabindex="-1"></a>    <span class="co"># Constraint: v on location (i, j) is at most x on location (i, j-1), x on location (i, j), and x on location (i, j+1)</span></span>
+<span id="cb1-62"><a aria-hidden="true" href="#cb1-62" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_rows):</span>
+<span id="cb1-63"><a aria-hidden="true" href="#cb1-63" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_columns):</span>
+<span id="cb1-64"><a aria-hidden="true" href="#cb1-64" tabindex="-1"></a>            <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors):</span>
+<span id="cb1-65"><a aria-hidden="true" href="#cb1-65" tabindex="-1"></a>                <span class="cf">if</span> j <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb1-66"><a aria-hidden="true" href="#cb1-66" tabindex="-1"></a>                    model.addCons(v[i, j, c] <span class="op">&lt;=</span> x[i, j<span class="op">-</span><span class="dv">1</span>, c])</span>
+<span id="cb1-67"><a aria-hidden="true" href="#cb1-67" tabindex="-1"></a>                model.addCons(v[i, j, c] <span class="op">&lt;=</span> x[i, j, c])</span>
+<span id="cb1-68"><a aria-hidden="true" href="#cb1-68" tabindex="-1"></a>                <span class="cf">if</span> j <span class="op">!=</span> num_columns<span class="op">-</span><span class="dv">1</span>:</span>
+<span id="cb1-69"><a aria-hidden="true" href="#cb1-69" tabindex="-1"></a>                    model.addCons(v[i, j, c] <span class="op">&lt;=</span> x[i, j<span class="op">+</span><span class="dv">1</span>, c])</span>
+<span id="cb1-70"><a aria-hidden="true" href="#cb1-70" tabindex="-1"></a></span>
+<span id="cb1-71"><a aria-hidden="true" href="#cb1-71" tabindex="-1"></a>    <span class="co"># Constraint: h on location (i, j) is at least x[i-1, j, c] + x[i, j, c] + x[i+1, j, c] - 2</span></span>
+<span id="cb1-72"><a aria-hidden="true" href="#cb1-72" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, num_rows <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb1-73"><a aria-hidden="true" href="#cb1-73" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_columns):</span>
+<span id="cb1-74"><a aria-hidden="true" href="#cb1-74" tabindex="-1"></a>            <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors):</span>
+<span id="cb1-75"><a aria-hidden="true" href="#cb1-75" tabindex="-1"></a>                neighbors <span class="op">=</span> [(i<span class="op">-</span><span class="dv">1</span>, j), (i, j), (i<span class="op">+</span><span class="dv">1</span>, j)]</span>
+<span id="cb1-76"><a aria-hidden="true" href="#cb1-76" tabindex="-1"></a>                neighbors <span class="op">=</span> [(ni, nj) <span class="cf">for</span> ni, nj <span class="kw">in</span> neighbors <span class="cf">if</span> <span class="dv">0</span> <span class="op">&lt;=</span> ni <span class="op">&lt;</span> num_rows <span class="kw">and</span> <span class="dv">0</span> <span class="op">&lt;=</span> nj <span class="op">&lt;</span> num_columns]</span>
+<span id="cb1-77"><a aria-hidden="true" href="#cb1-77" tabindex="-1"></a></span>
+<span id="cb1-78"><a aria-hidden="true" href="#cb1-78" tabindex="-1"></a>                model.addCons(h[i, j, c] <span class="op">&gt;=</span> quicksum(x[ni, nj, c] <span class="cf">for</span> ni, nj <span class="kw">in</span> neighbors) <span class="op">-</span> <span class="dv">2</span>)</span>
+<span id="cb1-79"><a aria-hidden="true" href="#cb1-79" tabindex="-1"></a></span>
+<span id="cb1-80"><a aria-hidden="true" href="#cb1-80" tabindex="-1"></a>    <span class="co"># Constraint: v on location (i, j) is at least x[i, j-1, c] + x[i, j, c] + x[i, j+1, c] - 2</span></span>
+<span id="cb1-81"><a aria-hidden="true" href="#cb1-81" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_rows):</span>
+<span id="cb1-82"><a aria-hidden="true" href="#cb1-82" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_columns):</span>
+<span id="cb1-83"><a aria-hidden="true" href="#cb1-83" tabindex="-1"></a>            <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors):</span>
+<span id="cb1-84"><a aria-hidden="true" href="#cb1-84" tabindex="-1"></a>                neighbors <span class="op">=</span> [(i, j<span class="op">-</span><span class="dv">1</span>), (i, j), (i, j<span class="op">+</span><span class="dv">1</span>)]</span>
+<span id="cb1-85"><a aria-hidden="true" href="#cb1-85" tabindex="-1"></a>                neighbors <span class="op">=</span> [(ni, nj) <span class="cf">for</span> ni, nj <span class="kw">in</span> neighbors <span class="cf">if</span> <span class="dv">0</span> <span class="op">&lt;=</span> ni <span class="op">&lt;</span> num_rows <span class="kw">and</span> <span class="dv">0</span> <span class="op">&lt;=</span> nj <span class="op">&lt;</span> num_columns]</span>
+<span id="cb1-86"><a aria-hidden="true" href="#cb1-86" tabindex="-1"></a></span>
+<span id="cb1-87"><a aria-hidden="true" href="#cb1-87" tabindex="-1"></a>                model.addCons(v[i, j, c] <span class="op">&gt;=</span> quicksum(x[ni, nj, c] <span class="cf">for</span> ni, nj <span class="kw">in</span> neighbors) <span class="op">-</span> <span class="dv">2</span>)</span>
+<span id="cb1-88"><a aria-hidden="true" href="#cb1-88" tabindex="-1"></a></span>
+<span id="cb1-89"><a aria-hidden="true" href="#cb1-89" tabindex="-1"></a>    <span class="co"># Constraint: For each blocked location (i, j), x[i, j, c] should be 0 for every color</span></span>
+<span id="cb1-90"><a aria-hidden="true" href="#cb1-90" tabindex="-1"></a>    <span class="cf">for</span> i, j <span class="kw">in</span> blocked:</span>
+<span id="cb1-91"><a aria-hidden="true" href="#cb1-91" tabindex="-1"></a>        <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors):</span>
+<span id="cb1-92"><a aria-hidden="true" href="#cb1-92" tabindex="-1"></a>            model.addCons(x[i, j, c] <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb1-93"><a aria-hidden="true" href="#cb1-93" tabindex="-1"></a></span>
+<span id="cb1-94"><a aria-hidden="true" href="#cb1-94" tabindex="-1"></a>    <span class="co"># Constraint: X at location (i, j) must be at least</span></span>
+<span id="cb1-95"><a aria-hidden="true" href="#cb1-95" tabindex="-1"></a>    <span class="co"># 1) 1 adjecent coloured square if a endpoint of trajectory,  </span></span>
+<span id="cb1-96"><a aria-hidden="true" href="#cb1-96" tabindex="-1"></a>    <span class="co"># 2) 2 adjecent coloured squares if coloured, and   </span></span>
+<span id="cb1-97"><a aria-hidden="true" href="#cb1-97" tabindex="-1"></a>    <span class="co"># 3) 0 adjecent coloured squares otherwise</span></span>
+<span id="cb1-98"><a aria-hidden="true" href="#cb1-98" tabindex="-1"></a>    <span class="co"># for every color c.</span></span>
+<span id="cb1-99"><a aria-hidden="true" href="#cb1-99" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_rows):</span>
+<span id="cb1-100"><a aria-hidden="true" href="#cb1-100" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_columns):</span>
+<span id="cb1-101"><a aria-hidden="true" href="#cb1-101" tabindex="-1"></a>            <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors):</span>
+<span id="cb1-102"><a aria-hidden="true" href="#cb1-102" tabindex="-1"></a>                neighbors <span class="op">=</span> [(i<span class="op">-</span><span class="dv">1</span>, j), (i<span class="op">+</span><span class="dv">1</span>, j), (i, j<span class="op">-</span><span class="dv">1</span>), (i, j<span class="op">+</span><span class="dv">1</span>)]</span>
+<span id="cb1-103"><a aria-hidden="true" href="#cb1-103" tabindex="-1"></a></span>
+<span id="cb1-104"><a aria-hidden="true" href="#cb1-104" tabindex="-1"></a>                <span class="co"># Handle edges and corners</span></span>
+<span id="cb1-105"><a aria-hidden="true" href="#cb1-105" tabindex="-1"></a>                neighbors <span class="op">=</span> [(ni, nj) <span class="cf">for</span> ni, nj <span class="kw">in</span> neighbors <span class="cf">if</span> <span class="dv">0</span> <span class="op">&lt;=</span> ni <span class="op">&lt;</span> num_rows <span class="kw">and</span> <span class="dv">0</span> <span class="op">&lt;=</span> nj <span class="op">&lt;</span> num_columns]</span>
+<span id="cb1-106"><a aria-hidden="true" href="#cb1-106" tabindex="-1"></a></span>
+<span id="cb1-107"><a aria-hidden="true" href="#cb1-107" tabindex="-1"></a>                trajectory_for_color <span class="op">=</span> <span class="bu">next</span>((trajectory <span class="cf">for</span> trajectory <span class="kw">in</span> trajectory_terminals <span class="cf">if</span> trajectory[<span class="st">"color"</span>] <span class="op">==</span> c), <span class="va">None</span>)</span>
+<span id="cb1-108"><a aria-hidden="true" href="#cb1-108" tabindex="-1"></a></span>
+<span id="cb1-109"><a aria-hidden="true" href="#cb1-109" tabindex="-1"></a>                <span class="cf">if</span> trajectory_for_color <span class="kw">and</span> ((i,j) <span class="op">==</span> trajectory_for_color[<span class="st">"source"</span>] <span class="kw">or</span> (i,j) <span class="op">==</span> trajectory_for_color[<span class="st">"target"</span>]):</span>
+<span id="cb1-110"><a aria-hidden="true" href="#cb1-110" tabindex="-1"></a>                    model.addCons(x[i, j, c] <span class="op">==</span> quicksum(x[ni, nj, c] <span class="cf">for</span> ni, nj <span class="kw">in</span> neighbors))</span>
+<span id="cb1-111"><a aria-hidden="true" href="#cb1-111" tabindex="-1"></a>                <span class="cf">else</span>:</span>
+<span id="cb1-112"><a aria-hidden="true" href="#cb1-112" tabindex="-1"></a>                    model.addCons(<span class="dv">2</span><span class="op">*</span>x[i, j, c] <span class="op">&lt;=</span> quicksum(x[ni, nj, c] <span class="cf">for</span> ni, nj <span class="kw">in</span> neighbors))</span>
+<span id="cb1-113"><a aria-hidden="true" href="#cb1-113" tabindex="-1"></a>                    model.addCons(quicksum(x[ni, nj, c] <span class="cf">for</span> ni, nj <span class="kw">in</span> neighbors) <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>x[i, j, c] <span class="op">&lt;=</span> <span class="dv">4</span>)</span>
+<span id="cb1-114"><a aria-hidden="true" href="#cb1-114" tabindex="-1"></a></span>
+<span id="cb1-115"><a aria-hidden="true" href="#cb1-115" tabindex="-1"></a>    <span class="co"># Constraint: For each trajectory_terminal, set x to 1 for the specified color and location (source and target)</span></span>
+<span id="cb1-116"><a aria-hidden="true" href="#cb1-116" tabindex="-1"></a>    <span class="cf">for</span> terminal <span class="kw">in</span> trajectory_terminals:</span>
+<span id="cb1-117"><a aria-hidden="true" href="#cb1-117" tabindex="-1"></a>        source_i, source_j <span class="op">=</span> terminal[<span class="st">"source"</span>]</span>
+<span id="cb1-118"><a aria-hidden="true" href="#cb1-118" tabindex="-1"></a>        target_i, target_j <span class="op">=</span> terminal[<span class="st">"target"</span>]</span>
+<span id="cb1-119"><a aria-hidden="true" href="#cb1-119" tabindex="-1"></a>        color <span class="op">=</span> terminal[<span class="st">"color"</span>]</span>
+<span id="cb1-120"><a aria-hidden="true" href="#cb1-120" tabindex="-1"></a>        model.addCons(x[source_i, source_j, color] <span class="op">==</span> <span class="dv">1</span>)</span>
+<span id="cb1-121"><a aria-hidden="true" href="#cb1-121" tabindex="-1"></a>        model.addCons(x[target_i, target_j, color] <span class="op">==</span> <span class="dv">1</span>)</span>
+<span id="cb1-122"><a aria-hidden="true" href="#cb1-122" tabindex="-1"></a>        model.addCons(quicksum(x[source_i, source_j, c] <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors)) <span class="op">==</span> <span class="dv">1</span>)</span>
+<span id="cb1-123"><a aria-hidden="true" href="#cb1-123" tabindex="-1"></a>        model.addCons(quicksum(x[target_i, target_j, c] <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors)) <span class="op">==</span> <span class="dv">1</span>)</span>
+<span id="cb1-124"><a aria-hidden="true" href="#cb1-124" tabindex="-1"></a></span>
+<span id="cb1-125"><a aria-hidden="true" href="#cb1-125" tabindex="-1"></a></span>
+<span id="cb1-126"><a aria-hidden="true" href="#cb1-126" tabindex="-1"></a>    <span class="co"># Stop print flood</span></span>
+<span id="cb1-127"><a aria-hidden="true" href="#cb1-127" tabindex="-1"></a>    model.hideOutput()</span>
+<span id="cb1-128"><a aria-hidden="true" href="#cb1-128" tabindex="-1"></a></span>
+<span id="cb1-129"><a aria-hidden="true" href="#cb1-129" tabindex="-1"></a>    <span class="co"># Solve the MIP</span></span>
+<span id="cb1-130"><a aria-hidden="true" href="#cb1-130" tabindex="-1"></a>    model.optimize()</span>
+<span id="cb1-131"><a aria-hidden="true" href="#cb1-131" tabindex="-1"></a></span>
+<span id="cb1-132"><a aria-hidden="true" href="#cb1-132" tabindex="-1"></a>    <span class="cf">if</span> model.getStatus() <span class="op">!=</span> <span class="st">"optimal"</span>:</span>
+<span id="cb1-133"><a aria-hidden="true" href="#cb1-133" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"NOT OPTIMAL!!!"</span>)</span>
+<span id="cb1-134"><a aria-hidden="true" href="#cb1-134" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb1-135"><a aria-hidden="true" href="#cb1-135" tabindex="-1"></a></span>
+<span id="cb1-136"><a aria-hidden="true" href="#cb1-136" tabindex="-1"></a>    <span class="co"># # get optimal solution</span></span>
+<span id="cb1-137"><a aria-hidden="true" href="#cb1-137" tabindex="-1"></a>    sol <span class="op">=</span> model.getBestSol()</span>
+<span id="cb1-138"><a aria-hidden="true" href="#cb1-138" tabindex="-1"></a></span>
+<span id="cb1-139"><a aria-hidden="true" href="#cb1-139" tabindex="-1"></a>    optimal_solution_X <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb1-140"><a aria-hidden="true" href="#cb1-140" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_rows):</span>
+<span id="cb1-141"><a aria-hidden="true" href="#cb1-141" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_columns):</span>
+<span id="cb1-142"><a aria-hidden="true" href="#cb1-142" tabindex="-1"></a>            <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors):</span>
+<span id="cb1-143"><a aria-hidden="true" href="#cb1-143" tabindex="-1"></a>                optimal_solution_X[(i,j,c)] <span class="op">=</span> model.getSolVal(sol, x[i,j,c])</span>
+<span id="cb1-144"><a aria-hidden="true" href="#cb1-144" tabindex="-1"></a></span>
+<span id="cb1-145"><a aria-hidden="true" href="#cb1-145" tabindex="-1"></a>    <span class="cf">return</span> optimal_solution_X</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</div>
+<p>To demonstrate our code, we insert a puzzle that we had once during a Dies celebration.</p>
+<div class="cell" data-execution_count="2" id="34c2ca0f">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="co"># Example usage:</span></span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a>num_rows <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a>num_columns <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb2-4"><a aria-hidden="true" href="#cb2-4" tabindex="-1"></a>num_colors <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb2-5"><a aria-hidden="true" href="#cb2-5" tabindex="-1"></a>blocked_locations <span class="op">=</span> [</span>
+<span id="cb2-6"><a aria-hidden="true" href="#cb2-6" tabindex="-1"></a>    (<span class="dv">3</span>, <span class="dv">3</span>), (<span class="dv">4</span>, <span class="dv">2</span>), (<span class="dv">4</span>, <span class="dv">3</span>), (<span class="dv">4</span>, <span class="dv">4</span>), (<span class="dv">5</span>, <span class="dv">3</span>)</span>
+<span id="cb2-7"><a aria-hidden="true" href="#cb2-7" tabindex="-1"></a>]</span>
+<span id="cb2-8"><a aria-hidden="true" href="#cb2-8" tabindex="-1"></a>trajectory_terminals <span class="op">=</span> [</span>
+<span id="cb2-9"><a aria-hidden="true" href="#cb2-9" tabindex="-1"></a>    {<span class="st">"source"</span>: (<span class="dv">1</span>, <span class="dv">1</span>), <span class="st">"target"</span>: (<span class="dv">5</span>, <span class="dv">4</span>), <span class="st">"color"</span>: <span class="dv">1</span>}, </span>
+<span id="cb2-10"><a aria-hidden="true" href="#cb2-10" tabindex="-1"></a>    {<span class="st">"source"</span>: (<span class="dv">7</span>, <span class="dv">5</span>), <span class="st">"target"</span>: (<span class="dv">1</span>, <span class="dv">3</span>), <span class="st">"color"</span>: <span class="dv">2</span>},</span>
+<span id="cb2-11"><a aria-hidden="true" href="#cb2-11" tabindex="-1"></a>    {<span class="st">"source"</span>: (<span class="dv">3</span>, <span class="dv">2</span>), <span class="st">"target"</span>: (<span class="dv">1</span>, <span class="dv">6</span>), <span class="st">"color"</span>: <span class="dv">3</span>},</span>
+<span id="cb2-12"><a aria-hidden="true" href="#cb2-12" tabindex="-1"></a>    {<span class="st">"source"</span>: (<span class="dv">6</span>, <span class="dv">1</span>), <span class="st">"target"</span>: (<span class="dv">2</span>, <span class="dv">6</span>), <span class="st">"color"</span>: <span class="dv">4</span>},</span>
+<span id="cb2-13"><a aria-hidden="true" href="#cb2-13" tabindex="-1"></a>    {<span class="st">"source"</span>: (<span class="dv">4</span>, <span class="dv">0</span>), <span class="st">"target"</span>: (<span class="dv">4</span>, <span class="dv">7</span>), <span class="st">"color"</span>: <span class="dv">5</span>},</span>
+<span id="cb2-14"><a aria-hidden="true" href="#cb2-14" tabindex="-1"></a>]</span>
+<span id="cb2-15"><a aria-hidden="true" href="#cb2-15" tabindex="-1"></a></span>
+<span id="cb2-16"><a aria-hidden="true" href="#cb2-16" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">next</span>((trajectory <span class="cf">for</span> trajectory <span class="kw">in</span> trajectory_terminals <span class="cf">if</span> trajectory[<span class="st">"color"</span>] <span class="op">==</span> <span class="dv">1</span>), <span class="va">None</span>))</span>
+<span id="cb2-17"><a aria-hidden="true" href="#cb2-17" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">next</span>((trajectory <span class="cf">for</span> trajectory <span class="kw">in</span> trajectory_terminals <span class="cf">if</span> trajectory[<span class="st">"color"</span>] <span class="op">==</span> <span class="dv">2</span>), <span class="va">None</span>))</span>
+<span id="cb2-18"><a aria-hidden="true" href="#cb2-18" tabindex="-1"></a></span>
+<span id="cb2-19"><a aria-hidden="true" href="#cb2-19" tabindex="-1"></a>optimal_solution_X <span class="op">=</span> solve_puzzle(<span class="st">"MyModel"</span>, num_rows, num_columns, num_colors, blocked_locations, trajectory_terminals)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'source': (1, 1), 'target': (5, 4), 'color': 1}
+{'source': (7, 5), 'target': (1, 3), 'color': 2}</code></pre>
+</div>
+</div>
+<p>Let’s plot the solution.</p>
+<div class="cell" data-execution_count="3" id="6301b743">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> colors</span>
+<span id="cb4-3"><a aria-hidden="true" href="#cb4-3" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> ticker</span>
+<span id="cb4-4"><a aria-hidden="true" href="#cb4-4" tabindex="-1"></a><span class="im">from</span> matplotlib.ticker <span class="im">import</span> MultipleLocator, AutoMinorLocator</span>
+<span id="cb4-5"><a aria-hidden="true" href="#cb4-5" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-6"><a aria-hidden="true" href="#cb4-6" tabindex="-1"></a></span>
+<span id="cb4-7"><a aria-hidden="true" href="#cb4-7" tabindex="-1"></a><span class="co"># Create a coloured grid with the highest assigned state colour as colour</span></span>
+<span id="cb4-8"><a aria-hidden="true" href="#cb4-8" tabindex="-1"></a>grid_array <span class="op">=</span> np.zeros((num_rows, num_columns))</span>
+<span id="cb4-9"><a aria-hidden="true" href="#cb4-9" tabindex="-1"></a></span>
+<span id="cb4-10"><a aria-hidden="true" href="#cb4-10" tabindex="-1"></a><span class="cf">for</span> (i,j) <span class="kw">in</span> np.ndindex(grid_array.shape):</span>
+<span id="cb4-11"><a aria-hidden="true" href="#cb4-11" tabindex="-1"></a>    grid_array[i,j] <span class="op">=</span> <span class="bu">max</span>([<span class="bu">round</span>(optimal_solution_X.get((i, j, c))<span class="op">*</span>c) <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(num_colors)])</span>
+<span id="cb4-12"><a aria-hidden="true" href="#cb4-12" tabindex="-1"></a></span>
+<span id="cb4-13"><a aria-hidden="true" href="#cb4-13" tabindex="-1"></a><span class="co"># create discrete colormap</span></span>
+<span id="cb4-14"><a aria-hidden="true" href="#cb4-14" tabindex="-1"></a>cmap <span class="op">=</span> colors.ListedColormap([<span class="st">'gray'</span>, <span class="st">'red'</span>, <span class="st">'green'</span>, <span class="st">"pink"</span>, <span class="st">"yellow"</span>, <span class="st">"blue"</span>])</span>
+<span id="cb4-15"><a aria-hidden="true" href="#cb4-15" tabindex="-1"></a>bounds <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]</span>
+<span id="cb4-16"><a aria-hidden="true" href="#cb4-16" tabindex="-1"></a>norm <span class="op">=</span> colors.BoundaryNorm(bounds, cmap.N)</span>
+<span id="cb4-17"><a aria-hidden="true" href="#cb4-17" tabindex="-1"></a></span>
+<span id="cb4-18"><a aria-hidden="true" href="#cb4-18" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">8</span>))</span>
+<span id="cb4-19"><a aria-hidden="true" href="#cb4-19" tabindex="-1"></a></span>
+<span id="cb4-20"><a aria-hidden="true" href="#cb4-20" tabindex="-1"></a><span class="co"># draw the grid so that the numbers are halfway the tiles, and the tiles are nicely separated.</span></span>
+<span id="cb4-21"><a aria-hidden="true" href="#cb4-21" tabindex="-1"></a>ax.grid(which<span class="op">=</span><span class="st">'major'</span>, axis<span class="op">=</span><span class="st">'both'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>, color<span class="op">=</span><span class="st">'k'</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb4-22"><a aria-hidden="true" href="#cb4-22" tabindex="-1"></a></span>
+<span id="cb4-23"><a aria-hidden="true" href="#cb4-23" tabindex="-1"></a>ax.set_yticks(np.arange(<span class="op">-</span><span class="fl">.5</span>, num_columns, <span class="dv">1</span>))</span>
+<span id="cb4-24"><a aria-hidden="true" href="#cb4-24" tabindex="-1"></a>ax.set_yticklabels(<span class="st">''</span>)</span>
+<span id="cb4-25"><a aria-hidden="true" href="#cb4-25" tabindex="-1"></a>ax.set_yticks(np.arange(<span class="dv">0</span>, num_rows, <span class="dv">1</span>), minor<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-26"><a aria-hidden="true" href="#cb4-26" tabindex="-1"></a>ax.set_yticklabels(np.arange(<span class="dv">0</span>, num_rows, <span class="dv">1</span>), minor<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-27"><a aria-hidden="true" href="#cb4-27" tabindex="-1"></a></span>
+<span id="cb4-28"><a aria-hidden="true" href="#cb4-28" tabindex="-1"></a>ax.set_xticks(np.arange(<span class="op">-</span><span class="fl">.5</span>, num_columns, <span class="dv">1</span>))</span>
+<span id="cb4-29"><a aria-hidden="true" href="#cb4-29" tabindex="-1"></a>ax.set_xticklabels(<span class="st">''</span>)</span>
+<span id="cb4-30"><a aria-hidden="true" href="#cb4-30" tabindex="-1"></a>ax.set_xticks(np.arange(<span class="dv">0</span>, num_rows, <span class="dv">1</span>), minor<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-31"><a aria-hidden="true" href="#cb4-31" tabindex="-1"></a>ax.set_xticklabels(np.arange(<span class="dv">0</span>, num_rows, <span class="dv">1</span>), minor<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-32"><a aria-hidden="true" href="#cb4-32" tabindex="-1"></a></span>
+<span id="cb4-33"><a aria-hidden="true" href="#cb4-33" tabindex="-1"></a><span class="co"># colour the tiles on the canvas</span></span>
+<span id="cb4-34"><a aria-hidden="true" href="#cb4-34" tabindex="-1"></a>ax.imshow(grid_array, cmap<span class="op">=</span>cmap, norm<span class="op">=</span>norm)</span>
+<span id="cb4-35"><a aria-hidden="true" href="#cb4-35" tabindex="-1"></a><span class="cf">for</span> (i, j) <span class="kw">in</span> blocked_locations:</span>
+<span id="cb4-36"><a aria-hidden="true" href="#cb4-36" tabindex="-1"></a>    ax.text(j, i, <span class="st">"X"</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>, color<span class="op">=</span><span class="st">"w"</span>, fontsize<span class="op">=</span><span class="dv">48</span>)</span>
+<span id="cb4-37"><a aria-hidden="true" href="#cb4-37" tabindex="-1"></a><span class="cf">for</span> trajectory <span class="kw">in</span> trajectory_terminals:</span>
+<span id="cb4-38"><a aria-hidden="true" href="#cb4-38" tabindex="-1"></a>    source_i, source_j <span class="op">=</span> trajectory[<span class="st">"source"</span>]</span>
+<span id="cb4-39"><a aria-hidden="true" href="#cb4-39" tabindex="-1"></a>    target_i, target_j <span class="op">=</span> trajectory[<span class="st">"target"</span>]</span>
+<span id="cb4-40"><a aria-hidden="true" href="#cb4-40" tabindex="-1"></a>    ax.text(source_j, source_i, <span class="st">"S"</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>, color<span class="op">=</span><span class="st">"w"</span>, fontsize<span class="op">=</span><span class="dv">48</span>)</span>
+<span id="cb4-41"><a aria-hidden="true" href="#cb4-41" tabindex="-1"></a>    ax.text(target_j, target_i, <span class="st">"T"</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>, color<span class="op">=</span><span class="st">"w"</span>, fontsize<span class="op">=</span><span class="dv">48</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img class="figure-img" height="631" src="/static/blog/notebooks/flow_puzzles/cell-4-output-1.png" width="626"/></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In our plot the source and targets are highlighted with an S and a T respectively. The blocked tiles are marked with an X. Since matplotlib allows us to only colour one tile with one colour, we choose to colour it using the colour with the biggest value. Knowing the rules of the puzzle and that the solution uses a minimal number of coloured tiles, it is easy enough to see all the trajectories even with our choice.</p>
+<p>We can confirm by hand that this is indeed the optimal solution.</p>
+</section>
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div>
+  
+</body>
+
+</html>
