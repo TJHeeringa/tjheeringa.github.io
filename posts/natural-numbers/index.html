@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-1.3.433">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+  <title></title>
+  <style>
+    code {
+      white-space: pre-wrap;
+    }
+
+    span.smallcaps {
+      font-variant: small-caps;
+    }
+
+    div.columns {
+      display: flex;
+      gap: min(4vw, 1.5em);
+    }
+
+    div.column {
+      flex: auto;
+      overflow-x: auto;
+    }
+
+    div.hanging-indent {
+      margin-left: 1.5em;
+      text-indent: -1.5em;
+    }
+
+    ul.task-list {
+      list-style: none;
+    }
+
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em;
+      /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
+      vertical-align: middle;
+    }
+
+    /* CSS for syntax highlighting */
+    pre>code.sourceCode {
+      white-space: pre;
+      position: relative;
+    }
+
+    pre>code.sourceCode>span {
+      display: inline-block;
+      line-height: 1.25;
+    }
+
+    pre>code.sourceCode>span:empty {
+      height: 1.2em;
+    }
+
+    .sourceCode {
+      overflow: visible;
+    }
+
+    code.sourceCode>span {
+      color: inherit;
+      text-decoration: inherit;
+    }
+
+    div.sourceCode {
+      margin: 1em 0;
+    }
+
+    pre.sourceCode {
+      margin: 0;
+    }
+
+    @media screen {
+      div.sourceCode {
+        overflow: auto;
+      }
+    }
+
+    @media print {
+      pre>code.sourceCode {
+        white-space: pre-wrap;
+      }
+
+      pre>code.sourceCode>span {
+        text-indent: -5em;
+        padding-left: 5em;
+      }
+    }
+
+    pre.numberSource code {
+      counter-reset: source-line 0;
+    }
+
+    pre.numberSource code>span {
+      position: relative;
+      left: -4em;
+      counter-increment: source-line;
+    }
+
+    pre.numberSource code>span>a:first-child::before {
+      content: counter(source-line);
+      position: relative;
+      left: -1em;
+      text-align: right;
+      vertical-align: baseline;
+      border: none;
+      display: inline-block;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      padding: 0 4px;
+      width: 4em;
+    }
+
+    pre.numberSource {
+      margin-left: 3em;
+      padding-left: 4px;
+    }
+
+    div.sourceCode {}
+
+    @media screen {
+      pre>code.sourceCode>span>a:first-child::before {
+        text-decoration: underline;
+      }
+    }
+  </style>
+
+  
+  <link type="text/css" href="/static/blog/shared.css" rel="stylesheet" />
+  <link type="text/css" href="/static/blog/nav.css" rel="stylesheet" />
+
+  <script type="text/javascript" src="/static/blog/notebooks/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript" src="/static/blog/notebooks/quarto-html/quarto.js"></script>
+  <script type="text/javascript" src="/static/blog/notebooks/quarto-html/popper.min.js"></script>
+  <script type="text/javascript" src="/static/blog/notebooks/quarto-html/tippy.umd.min.js"></script>
+  <script type="text/javascript" src="/static/blog/notebooks/quarto-html/anchor.min.js"></script>
+
+  <link href="/static/blog/notebooks/quarto-html/tippy.css" rel="stylesheet">
+  <link href="/static/blog/notebooks/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+  <script type="text/javascript" src="/static/blog/notebooks/bootstrap/bootstrap.min.js"></script>
+  <link href="/static/blog/notebooks/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/blog/notebooks/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"
+    integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+    crossorigin="anonymous"></script>
+  <script type="application/javascript">define('jquery', [], function () { return window.jQuery; })</script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    window.PlotlyConfig = { MathJaxConfig: 'local' };
+    if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) { window.MathJax.Hub.Config({ SVG: { font: "STIX-Web" } }); }
+    if (typeof require !== 'undefined') {
+      require.undef("plotly");
+      requirejs.config({
+        paths: {
+          'plotly': ['https://cdn.plot.ly/plotly-2.24.1.min']
+        }
+      });
+      require(['plotly'], function (Plotly) {
+        window._Plotly = Plotly;
+      });
+    }
+  </script>
+
+
+
+</head>
+
+<body class="">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+    <div class="container px-5 w-100">
+        <a class="navbar-brand" href="/"><span class="fw-bolder text-title">Tjeerd Jan Heeringa</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/posts">Blog</a></li>
+                <li class="nav-item"><a class="nav-link" href="/talks">Talks</a></li>
+                <li class="nav-item"><a class="nav-link" href="/papers">Papers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/posters">Posters</a></li>
+                <li class="nav-item"><a class="nav-link" href="/collaborators">Collaborators</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+  
+    <div class="page-columns page-rows-contents page-layout-article" id="quarto-content">
+<main class="content" id="quarto-document-content">
+<header class="quarto-title-block default" id="title-block-header">
+<div class="quarto-title">
+<h1 class="title">How to define: the natural numbers</h1>
+</div>
+<div class="quarto-title-meta">
+<div>
+<div class="quarto-title-meta-heading">Author</div>
+<div class="quarto-title-meta-contents">
+<p>T.J. Heeringa </p>
+</div>
+</div>
+<div>
+<div class="quarto-title-meta-heading">Published</div>
+<div class="quarto-title-meta-contents">
+<p class="date">February 18, 2025</p>
+</div>
+</div>
+</div>
+</header>
+<p>This is the first post in a series called “How to define …?”. In this series, we will answer the question “How is X actually defined?”. We will answer this for various math concepts we learn about in middle school, so that at the end of the series one knows exactly how most of the math learned in middle school is defined.</p>
+<p>Is knowing how these things is defined of any use in everyday life? No, not really. However, it does provide a solid fundament for any aspiring mathematician, and perhaps - more importantly - it just a series of fun facts to learn.</p>
+<section class="level2" id="the-natural-numbers">
+<h2 class="anchored" data-anchor-id="the-natural-numbers">The natural numbers</h2>
+<p>We start with the natural numbers. These numbers are the first numbers learned at school. They are the counting numbers and zero. So, <span class="math inline">\(0\)</span>, <span class="math inline">\(1\)</span>, and <span class="math inline">\(2\)</span> are natural numbers but <span class="math inline">\(1,234,567,890\)</span> is too.</p>
+<p>To be able to define these numbers and not get stuck in circular reasonings or end up with paradoxes, we have to be careful with where we start. We will start with sets. This is the common modern approach.</p>
+</section>
+<section class="level2" id="the-basic-building-block-the-set">
+<h2 class="anchored" data-anchor-id="the-basic-building-block-the-set">The basic building block: the set</h2>
+<p>So, what is a set? A set is collection of different things. These things can be anything: they can be numbers, lines, chairs, banana’s or even other sets. The things in the set are called <em>elements</em>. We write sets using braces and separate all the elements by comma’s. For example, <span class="math inline">\(\{1,2\}\)</span> is the set with the numbers <span class="math inline">\(1\)</span> and <span class="math inline">\(2\)</span> as elements. If a particular thing is an element of a set, we use the <span class="math inline">\(\in\)</span> symbol (pronounced: in) and if is it not we use the <span class="math inline">\(\not\in\)</span> symbol (pronounced: not in). For example, <span class="math inline">\(1\in\{1,2\}\)</span> but <span class="math inline">\(3\not\in\{1,2\}\)</span>.</p>
+<p>We do not care about how these elements are ordered in the set. Hence, we say the set <span class="math inline">\(\{1,2\}\)</span> is the same as the set <span class="math inline">\(\{2,1\}\)</span>. We also only care about unique elements, so the set <span class="math inline">\(\{1,2,1\}\)</span> is the same set as the set <span class="math inline">\(\{1,2\}\)</span>.</p>
+</section>
+<section class="level2" id="set-builder-notation">
+<h2 class="anchored" data-anchor-id="set-builder-notation">Set-builder notation</h2>
+<p>There are many sets. Some of these are special, and in many cases we are interested in sets constructed from others. It helps to have some convenient way of writing that down. We use set-builder notation for that. You have already seen the braces for the sets and the <span class="math inline">\(\in\)</span> for being an element. We need a few more of these to be able to write down and understand the definition of the natural numbers.</p>
+<ol type="1">
+<li><strong>Emtpy set</strong> <span class="math inline">\(\emptyset\)</span>: The empty set is the set without anything in it, i.e. <span class="math inline">\(\emptyset=\{\}\)</span>.</li>
+<li><strong>Subset</strong> <span class="math inline">\(\subseteq\)</span>: If all elements of set <span class="math inline">\(T\)</span> are also elements of set <span class="math inline">\(S\)</span>, we write <span class="math inline">\(T\subseteq S\)</span> and say that <span class="math inline">\(T\)</span> is a subset of <span class="math inline">\(S\)</span>.</li>
+<li><strong>Union</strong> <span class="math inline">\(\cap\)</span>: The set <span class="math inline">\(S\cap T\)</span> is the union of the set <span class="math inline">\(S\)</span> and the set <span class="math inline">\(T\)</span>. It contains all the elements of the set <span class="math inline">\(S\)</span> and the set <span class="math inline">\(T\)</span>.</li>
+<li><strong>Intersection</strong> <span class="math inline">\(\cup\)</span>: The set <span class="math inline">\(S\cup T\)</span> is the intersection of the set <span class="math inline">\(S\)</span> and the set <span class="math inline">\(T\)</span>. It contains all the elements that are in both the set <span class="math inline">\(S\)</span> and the set <span class="math inline">\(T\)</span>.</li>
+<li><strong>Restriction</strong> <span class="math inline">\(\{ x\in S \; | \; \phi(x) \}\)</span>: The set <span class="math inline">\(\{ x\in S \; | \; \phi(x) \}\)</span> contains the elements from the set <span class="math inline">\(S\)</span> that satisfy the condition <span class="math inline">\(\phi\)</span>. E.g. if <span class="math inline">\(S=\{1,\text{`T-rex'}, \odot\}\)</span> and <span class="math inline">\(\phi(x) =\)</span> “<span class="math inline">\(x\)</span> is a a number”, then <span class="math inline">\(T = \{ x\in S \; | \; x\text{ is a number} \} = \{1\}\)</span>.</li>
+</ol>
+</section>
+<section class="level2" id="defining-sets-but-more-rigorous">
+<h2 class="anchored" data-anchor-id="defining-sets-but-more-rigorous">Defining sets, but more rigorous</h2>
+<p>In our description of sets, we said that sets are collections of different things. To prevent the circular reasonings or end up with paradoxes, we need to make sure that we add some extra rules to what we say is acceptable as sets. After this, anything that doesn’t satisfies this rules will no longer be called a set or part of the sets. The list here includes the rules from the description above and the extra ones.</p>
+<ol type="1">
+<li><strong>Axiom of the empty set</strong>: The exists a set with no element in it <span class="math inline">\(\emptyset\)</span>, called the empty set.</li>
+<li><strong>Axiom of extensionality</strong>: If two sets have the same elements, then they are the same set.</li>
+<li><strong>Axiom of union</strong>: For any two sets, the union is a set.</li>
+<li><strong>Axiom schema of specification</strong>: Any restriction of a set is only a set when the condition which we use to restrict the set is purely based on the elements of the unrestricted set.</li>
+<li><strong>Axiom of pairing</strong>: For any two sets, there exists a set with these sets as elements.</li>
+<li><strong>Axiom of extensionality</strong>: For any set <span class="math inline">\(S\)</span>, there is a set which contains all subsets of the set. This set is written as <span class="math inline">\(\mathcal{P}(S)\)</span> and is called the power set of the set <span class="math inline">\(S\)</span>.</li>
+<li><strong>Axiom of regularity</strong>: Every set <span class="math inline">\(S\)</span>, that is not the equal to the empty set, has an element <span class="math inline">\(x\)</span> such that <span class="math inline">\(x\)</span> and <span class="math inline">\(S\)</span> have no elements in common.</li>
+<li><strong>Axiom of schema of replacement</strong>: If any function that transforms certain sets into other sets is applied to each element of a set, then the result is a set.</li>
+<li><strong>Axiom of choice</strong>: For every set consisting of sets which are not empty, there is a way to pick one element from each non-empty set.</li>
+<li><strong>Axiom of infinity</strong>: There exists a set which has the empty set as element and the property that if <span class="math inline">\(x\)</span> is an element of the set then the set <span class="math inline">\(x\cup{x}\)</span> is also an element of the set.</li>
+</ol>
+<p>The first 4 rules are effectively what we described before. The next 2 rules are expansion to what we described before, but do not introduce new symbols. The seventh rule excludes some (problematic) cases. The eight and nineth is not strictly necessary for ours goals, but are an essential part of advanced mathematics. The last one makes sure that infinitely large sets exists, and is specially designed for defining the natural numbers in a unique way.</p>
+<p>The fourth rule is effectively a constraint on the conditions <span class="math inline">\(\phi\)</span> that we can use. This is to avoid Russell’s paradox. This paradox describes the set <span class="math display">\[
+    R = \{ x \;|\; x\not\in x \}
+\]</span> This set is the set of all sets that are not elements of themselves. If <span class="math inline">\(R\)</span> is not an element of <span class="math inline">\(R\)</span>, then it must be an an element of <span class="math inline">\(R\)</span>. If <span class="math inline">\(R\)</span> is an element of itself, then it cannot be an element of itself. This is contradictory, so such sets should be excluded. We can also use this rule to write the intersection and the empty set: If <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span> are sets, then <span class="math display">\[
+    S\cap T = \{ x\in S \;|\; x\in T\}
+\]</span> and <span class="math display">\[
+    \emptyset = \{ x\in S \; |\; x\not\in S\}
+\]</span> We have included the first one for convenience: we avoid the technicalities of defining the symbol for the empty set otherwise, and we use it in rule 7 and 10 already.</p>
+<p>The (problematic) cases that the seventh one excludes are the following three:</p>
+<ol type="1">
+<li>A set cannot be an element of itself. If <span class="math inline">\(T=\{S\}\)</span> for a set <span class="math inline">\(S\)</span>, then <span class="math inline">\(T\)</span> is not the empty set. It has <span class="math inline">\(S\)</span> as only element. So, according to the rule, <span class="math inline">\(S\)</span> and <span class="math inline">\(T=\{S\}\)</span> should have no elements in common; <span class="math inline">\(S\cap \{S\}=\emptyset\)</span>. This is the same as saying the <span class="math inline">\(S\)</span> cannot be an element of <span class="math inline">\(S\)</span>.</li>
+<li>For two sets <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span>, only <span class="math inline">\(S\)</span> can be an element of <span class="math inline">\(T\)</span> or <span class="math inline">\(T\)</span> can be an element of <span class="math inline">\(S\)</span>. Both cannot be true. According to rule 5, <span class="math inline">\({S,T}\)</span> is a set. According to this rule, either <span class="math inline">\(S\)</span> and <span class="math inline">\({S,T}\)</span> should have no elements in common or <span class="math inline">\(T\)</span> and <span class="math inline">\({S,T}\)</span> should have no elements in common. If <span class="math inline">\(S\)</span> is an element of <span class="math inline">\(T\)</span>, then <span class="math inline">\(S\)</span> and <span class="math inline">\({S,T}\)</span> have an element in common. The same holds if <span class="math inline">\(T\)</span> is an element of <span class="math inline">\(S\)</span>.</li>
+<li>There cannot be loops or infinite descending sequences of sets. We can write such a sequence as <span class="math inline">\(x_1\ni x_2\ni x_3\ldots\)</span>, which goes on forever with sets <span class="math inline">\(x_k\)</span> with <span class="math inline">\(k\)</span> a natural number. Since each <span class="math inline">\(x_k\)</span> is a set, we can use rule 5 to conclude that there must be a set <span class="math inline">\(S\)</span> with all these sets <span class="math inline">\(x_k\)</span>, i.e. <span class="math inline">\(S=\{x_1,x_2,x_3,\ldots\}\)</span>. However, there is not a <span class="math inline">\(x_k\)</span> that shares no elements with <span class="math inline">\(S\)</span>; <span class="math inline">\(x_1\)</span> shares the set <span class="math inline">\(x_2\)</span> with <span class="math inline">\(S\)</span>, <span class="math inline">\(x_2\)</span> shares the set <span class="math inline">\(x_3\)</span> with <span class="math inline">\(S\)</span>, etc.</li>
+</ol>
+<p>By excluding these cases, we get that every set can be constructed using the the empty set and power sets. We start the set <span class="math inline">\(V_0\)</span>, which is simply the empty set <span class="math inline">\(\emptyset\)</span>. The next set <span class="math inline">\(V_k\)</span> is the powerset of the previous set, i.e <span class="math inline">\(V_k=\mathcal{P}(V_{k-1})\)</span>. The first few set <span class="math inline">\(V_k\)</span> are <span class="math display">\[
+\begin{align}
+    V_0 &amp;= \emptyset \\
+    V_1 &amp;= \mathcal{P}(V_0) = \{\emptyset\} \\
+    V_2 &amp;= \mathcal{P}(V_1) = \{\emptyset, \{\emptyset\}\} \\
+    V_3 &amp;= \mathcal{P}(V_2) = \{ \emptyset, \{\emptyset\}, \{\{\emptyset\}\}, \{\emptyset, \{\emptyset\}\}\}
+\end{align}
+\]</span> For every set <span class="math inline">\(x\)</span>, there is a set <span class="math inline">\(V_k\)</span> such that <span class="math inline">\(x\)</span> is an element of <span class="math inline">\(V_k\)</span>.</p>
+<p>Rule 10 says there exists a particular set which satisfies the given properties. This does not imply that there can only be one set that satisfies these properties. In fact, there are infinitly many such sets.</p>
+</section>
+<section class="level2" id="from-sets-to-natural-numbers">
+<h2 class="anchored" data-anchor-id="from-sets-to-natural-numbers">From sets to natural numbers</h2>
+<p>To go from ours definition of sets towards the natural numbers, we need to answer two questions</p>
+<ol type="1">
+<li>How is a natural number defined in terms of sets?</li>
+<li>Does the set of all natural numbers actually exist?</li>
+</ol>
+<section class="level4" id="question-1-how-is-a-natural-number-defined-in-terms-of-sets">
+<h4 class="anchored" data-anchor-id="question-1-how-is-a-natural-number-defined-in-terms-of-sets">Question 1: How is a natural number defined in terms of sets?</h4>
+<p>The natural numbers can be expressed as sets using the Von Nuemann ordinals. In this construction,</p>
+<p>The answer to first question is that zero is the empty set and all other numbers are the set of all the numbers before them. Hence, the natural numbers are the sets <span class="math display">\[
+\begin{align}
+    0 &amp;= \emptyset \\
+    1 &amp;= \{ 0 \} = \{\emptyset\} \\
+    2 &amp;= \{ 0, 1\} = \{\emptyset, \{\emptyset\}\} \\
+    3 &amp;= \{ 0, 1, 2\} = \{\emptyset, \{\emptyset\}, \{\emptyset, \{\emptyset\}\} \} \\
+    4 &amp;= \{ 0, 1, 2, 3\} = \{\emptyset, \{\emptyset\}, \{\emptyset, \{\emptyset\}\}, \{\emptyset, \{\emptyset\}, \{\emptyset, \{\emptyset\}\}\}\}
+\end{align}
+\]</span> and so on. This makes sure that the number of elements in the set matches the number. More importantly, it makes sure the numbers correspond to going from <span class="math inline">\(x\)</span> to <span class="math inline">\(x\cup{x}\)</span>, since <span class="math display">\[
+\begin{align}
+    1 &amp;= \{ 0 \} = 0 \cup \{0\} \\
+    2 &amp;= \{ 0,1 \} = \{0\} \cup \{1\} = 1 \cup \{1\} \\
+    3 &amp;= \{ 0,1,2 \} = \{0,1\} \cup \{2\} = 2 \cup \{2\} \\
+    4 &amp;= \{ 0,1,2,3 \} = \{0,1,2\} \cup \{3\} = 3 \cup \{3\}
+\end{align}
+\]</span> and so on. We will use this to answer the second question.</p>
+<p>The second question asks whether the <span class="math display">\[
+    \mathbb{N} = \{ 0, 1, 2, 3, 4, \ldots \}
+\]</span> is a set. Whilst the notation suggests this is true, but the rules don’t tell us directly that it is true. Luckily, we can derive from them that it does.</p>
+<p>Let’s use the letter <span class="math inline">\(I\)</span> for a set that satisfies the requirements of rule 10. Every natural number is an element of <span class="math inline">\(I\)</span>. From the rule, we immediately see that <span class="math inline">\(0\in I\)</span>. From the rule, it follows that <span class="math inline">\(0\cup\set{0}\)</span> must be an element of <span class="math inline">\(I\)</span> too. This is nothing else than saying that <span class="math inline">\(1\in I\)</span>, since we showed that <span class="math inline">\(0\cup\set{0}\)</span> is just a different way of writing the set <span class="math inline">\(1\)</span>. We can repeat this argument for every natural number to show that they are all elements of <span class="math inline">\(I\)</span>.</p>
+<p>Now, there can be additional elements in <span class="math inline">\(I\)</span> that are not natural numbers. We need to show that after removing those additional elements we still have a set. Since every set satisfying rule 10 contains the natural numbers, the intersection of all these should too. This intersection is written as <span class="math display">\[
+    \omega = \{ x\in I \;|\; x\in S\text{ for all subsets $S$ of $I$ that satify rule 10}\}
+\]</span> By rule 4, this is a set. This set satisfies rule 10: - <span class="math inline">\(\emptyset\)</span> is in every subset <span class="math inline">\(S\)</span>, so also in <span class="math inline">\(\omega\)</span>. - If <span class="math inline">\(x\in \omega\)</span>, then <span class="math inline">\(x\in S\)</span> for every subset <span class="math inline">\(S\)</span>. This implies that <span class="math inline">\(x\cup\set{x}\)</span> is in every <span class="math inline">\(S\)</span> too. Hence, <span class="math inline">\(x\cup\set{x}\)</span> is an element of <span class="math inline">\(\omega\)</span>. Does this match <span class="math inline">\(\mathbb{N}\)</span>? Well, suppose it is not. This means that there exists an element <span class="math inline">\(y\)</span> in for each <span class="math inline">\(S\)</span> that is not a natural number and for which there is no element <span class="math inline">\(x\)</span> in for each <span class="math inline">\(S\)</span> such that <span class="math inline">\(y=x\cup\set{x}\)</span> satisfying rule 10. However, the set <span class="math display">\[
+    \{ x \in S \; | \; x\neq y\}
+\]</span> also satisfies rule 10. This means there is a set <span class="math inline">\(S\)</span> without <span class="math inline">\(y\)</span>, which is contradictory. Hence, <span class="math inline">\(\omega\)</span> must be equal to <span class="math inline">\(\mathbb{N}\)</span>.</p>
+</section>
+</section>
+<section class="level2" id="conclusion">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>In summary, natural numbers are specific sets constructed from the empty set, and the formal definition of the set of natural numbers <span class="math inline">\(\mathbb{N}\)</span> is given by <span class="math display">\[
+    \mathbb{N} = \{ x\in I \;|\; x\in S\text{ for all subsets $S$ of $I$ that satify rule 10}\}
+\]</span> Working out this definition gives us <span class="math display">\[
+    \mathbb{N} = \{0, 1, 2 ,3, \ldots\}
+\]</span> which is exactly as expected.</p>
+</section>
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div>
+  
+</body>
+
+</html>
